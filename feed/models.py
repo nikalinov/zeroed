@@ -47,6 +47,9 @@ class Blog(models.Model):
     def get_absolute_url(self):
         return reverse('blog-detail', kwargs={'pk': self.pk})
 
+    def get_content_type(self):
+        return ', '.join(str(cont_type) for cont_type in self.content_type.all())
+
 
 class Comment(models.Model):
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
