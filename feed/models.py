@@ -20,29 +20,38 @@ class ContentType(models.Model):
     type = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.type}'
+        return self.type
 
 
 class Language(models.Model):
     language = models.CharField(max_length=100)
 
     def __str__(self):
-        return f'{self.language}'
+        return self.language
 
 
 class Blog(models.Model):
-    title = models.CharField(max_length=200)
-    author = models.ForeignKey(Author, on_delete=models.RESTRICT)
+    title = models.CharField(max_length=200, null=True)
+    author = models.ForeignKey(Author, on_delete=models.RESTRICT, null=True)
     post_date = models.DateField(default=now)
     content_type = models.ManyToManyField(ContentType)
-    language = models.ForeignKey(Language, on_delete=models.RESTRICT)
+    language = models.ForeignKey(Language, on_delete=models.RESTRICT, null=True)
     content = models.TextField()
 
     class Meta:
         ordering = ['-post_date']
 
     def __str__(self):
-        return f'{self.title}'
+        return self.title
 
     def get_absolute_url(self):
         return reverse('blog-detail', kwargs={'pk': self.pk})
+
+
+class Comment(models.Model):
+    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
+    text = models.TextField(max_length=1000)
+    post_date = models.DateField(default=now)
+
+    class Meta:
+        ordering = ['-post_date']
