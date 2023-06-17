@@ -25,16 +25,16 @@ def index(request):
 
 
 class AuthorListView(ListView):
-    pass
+    model = Author
 
 
 class AuthorDetailView(DetailView):
-    pass
+    model = Author
 
 
 class BlogListView(ListView):
-    pass
+    model = Blog
 
 
 class BlogDetailView(DetailView):
-    pass
+    model = Blog
