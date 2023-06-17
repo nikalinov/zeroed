@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.utils.timezone import now
 from django.db import models
 from feed.countries import COUNTRIES
@@ -52,9 +53,10 @@ class Blog(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     text = models.TextField(max_length=1000)
     post_date = models.DateField(default=now)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ['-post_date']
