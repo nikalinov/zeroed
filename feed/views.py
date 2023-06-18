@@ -12,6 +12,8 @@ def index(request):
     num_comments = Comment.objects.count()
     num_blogs_with_us_authors = Blog.objects.filter(author__country__exact='US').count()
     num_how_blogs = Blog.objects.filter(title__icontains='how').count()
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
 
     context = {
         'num_blogs': num_blogs,
@@ -19,6 +21,7 @@ def index(request):
         'num_comments': num_comments,
         'num_blogs_with_us_authors': num_blogs_with_us_authors,
         'num_how_blogs' : num_how_blogs,
+        'num_visits': num_visits,
     }
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)

@@ -15,4 +15,5 @@
     <li><strong>Number of blogs with titles containing 'how': </strong>{{ num_how_blogs }}</li>
     <li><strong>Comments:</strong> {{ num_comments }}</li>
   </ul>
+  <p>You have visited this page <strong>{{ num_visits }}</strong> time{{ num_visits|pluralize }}</p>
 {% endblock %}
