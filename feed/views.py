@@ -34,6 +34,7 @@ class AuthorDetailView(DetailView):
 
 class BlogListView(ListView):
     model = Blog
+    paginate_by = 5
 
 
 class BlogDetailView(DetailView):
