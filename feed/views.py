@@ -1,14 +1,14 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Language, Blog, Author, Comment, ContentType
+from .models import Blog, UserProfile, Comment
 
 
 def index(request):
     """View function for home page of site."""
 
     num_blogs = Blog.objects.count()
-    num_authors = Author.objects.count()
+    num_authors = UserProfile.objects.filter(author_of_blog__isnull=False).count()
     num_comments = Comment.objects.count()
     num_blogs_with_us_authors = Blog.objects.filter(author__country__exact='US').count()
     num_how_blogs = Blog.objects.filter(title__icontains='how').count()
@@ -20,7 +20,7 @@ def index(request):
         'num_authors': num_authors,
         'num_comments': num_comments,
         'num_blogs_with_us_authors': num_blogs_with_us_authors,
-        'num_how_blogs' : num_how_blogs,
+        'num_how_blogs': num_how_blogs,
         'num_visits': num_visits,
     }
     # Render the HTML template index.html with the data in the context variable
@@ -28,11 +28,11 @@ def index(request):
 
 
 class AuthorListView(ListView):
-    model = Author
+    model = UserProfile.objects.filter(author_of_blog__isnull=False)
 
 
-class AuthorDetailView(DetailView):
-    model = Author
+class UserDetailView(DetailView):
+    model = UserProfile
 
 
 class BlogListView(ListView):

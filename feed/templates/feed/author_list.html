@@ -1,16 +1,16 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Blogger List</h1>
-  {% if author_list %}
+  <h1>Author List</h1>
+  {% if object_list %}
     <ul>
-      {% for author in author_list %}
+      {% for userprofile in object_list %}
       <li>
-        <a href="{{ author.get_absolute_url }}">{{ author }}</a>, {{ author.country }}
+        <a href="{{ userprofile.get_absolute_url }}">{{ userprofile }}</a>, {{ userprofile.location }}
       </li>
       {% endfor %}
     </ul>
   {% else %}
-    <p>There are no bloggers yet.</p>
+    <p>There are no authors yet.</p>
   {% endif %}
 {% endblock %}
