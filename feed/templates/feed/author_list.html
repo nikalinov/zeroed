@@ -2,11 +2,11 @@
 
 {% block content %}
   <h1>Author List</h1>
-  {% if object_list %}
+  {% if user_list %}
     <ul>
-      {% for userprofile in object_list %}
+      {% for user in user_list %}
       <li>
-        <a href="{{ userprofile.get_absolute_url }}">{{ userprofile }}</a>, {{ userprofile.location }}
+        <a href="{{ user.get_absolute_url }}">{{ user }}</a>, {{ user.location }}
       </li>
       {% endfor %}
     </ul>

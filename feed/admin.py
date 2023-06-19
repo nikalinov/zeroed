@@ -1,6 +1,7 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from django.forms import Textarea
-from .models import Language, Blog, Comment, ContentType, UserProfile
+from .models import Language, Blog, Comment, ContentType
 from django.db import models
 
 
@@ -17,8 +18,7 @@ class BlogInline(admin.TabularInline):
     }
 
 
-@admin.register(UserProfile)
-class UserProfileAdmin(admin.ModelAdmin):
+class UserAdmin(admin.ModelAdmin):
     inlines = [BlogInline]
 
 

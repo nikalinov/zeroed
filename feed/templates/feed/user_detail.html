@@ -1,12 +1,12 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>User: {{ object }}</h1>
-  <p><strong>Reputation: </strong>{{ object.reputation }}</p>
-  <p><strong>Registration date: </strong>{{ object.user.date_joined }}</p>
+  <h1>User: {{ user }}</h1>
+  <p><strong>Reputation: </strong>{{ user.reputation }}</p>
+  <p><strong>Registration date: </strong>{{ user.date_joined }}</p>
   <div style="margin-left:20px;margin-top:20px">
     <h4>Blogs</h4>
-    {% for blog in object.blog_set.all %}
+    {% for blog in user.blog_set.all %}
         <p><a href="{{ blog.get_absolute_url }}">
         {{ blog }}</a> ({{ blog.post_date }})</p>
     {% endfor %}

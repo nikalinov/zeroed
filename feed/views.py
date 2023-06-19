@@ -1,16 +1,17 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Blog, UserProfile, Comment
+from .models import Blog, Comment
 
 
 def index(request):
     """View function for home page of site."""
 
     num_blogs = Blog.objects.count()
-    num_authors = UserProfile.objects.filter(author_of_blog__isnull=False).count()
+    num_authors = Blog.objects.select_related('author').all()
     num_comments = Comment.objects.count()
-    num_blogs_with_us_authors = Blog.objects.filter(author__country__exact='US').count()
+    num_blogs_with_us_authors = Blog.objects.filter(author__userprofile__location__exact='US').count()
     num_how_blogs = Blog.objects.filter(title__icontains='how').count()
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
@@ -28,11 +29,11 @@ def index(request):
 
 
 class AuthorListView(ListView):
-    model = UserProfile.objects.filter(author_of_blog__isnull=False)
+    model = Blog.objects.select_related('author')
 
 
 class UserDetailView(DetailView):
-    model = UserProfile
+    model = User
 
 
 class BlogListView(ListView):
