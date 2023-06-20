@@ -1,5 +1,5 @@
-.sidebar-nav {
-  margin-top: 20px;
-  padding: 0;
-  list-style: none;
+.nav-list li {
+    list-style: none;
+    padding: 26px 30px;
+    display: inline;
 }

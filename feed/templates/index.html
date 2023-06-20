@@ -1,19 +1,9 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Blog aggregator main page</h1>
-  <p>
-    Welcome to Blog aggregator, a website developed by
-    <em>Mozilla Developer Network</em>!
-  </p>
-  <h2>Dynamic content</h2>
-  <p>The website has the following record counts:</p>
-  <ul>
-    <li><strong>Blogs:</strong> {{ num_blogs }}</li>
-    <li><strong>Authors:</strong> {{ num_authors }}</li>
-    <li><strong>Number of blogs with US-based authors: </strong>{{ num_blogs_with_us_authors }}</li>
-    <li><strong>Number of blogs with titles containing 'how': </strong>{{ num_how_blogs }}</li>
-    <li><strong>Comments:</strong> {{ num_comments }}</li>
-  </ul>
-  <p>You have visited this page <strong>{{ num_visits }}</strong> time{{ num_visits|pluralize }}</p>
+  <h1>Explore blogs that you like.</h1>
+  {% for blog in blogs %}
+    <p><a href="{{ blog.get_absolute_url }}">{{ blog }}</a> ({{ blog.post_date }}) -
+    <a href="{{ blog.author.userprofile.get_absolute_url }}">blog.author</a></p>
+  {% endfor %}
 {% endblock %}
