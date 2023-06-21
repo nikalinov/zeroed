@@ -8,11 +8,7 @@ from .models import Blog, Comment
 
 def index(request):
     """View function for home page of site."""
-    blogs = Blog.objects.all()
-    context = {
-        'blogs': blogs
-    }
-    return render(request, 'index.html', context=context)
+    return render(request, 'index.html')
 
 
 class AuthorListView(ListView):
