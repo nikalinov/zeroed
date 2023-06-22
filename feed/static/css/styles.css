@@ -10796,3 +10796,7 @@ header.masthead .post-heading .meta a {
     font-size: 2.25rem;
   }
 }
+
+#mainNav li:last-child {
+  border: 0px solid #ddd;
+}
