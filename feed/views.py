@@ -8,22 +8,30 @@ from .models import Blog, Comment
 
 def index(request):
     """View function for home page of site."""
-    return render(request, 'index.html')
+    return render(request, 'feed/index.html')
+
+
+def register(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            new_user = User.objects.create_user(form.cleaned_data['username'],
+                                                form.cleaned_data['email'],
+                                                form.cleaned_data['password'],)
+    else:
 
 
 def about(request):
-    return render(request, 'about.html')
+    return render(request, 'feed/about.html')
 
 
 def post(request):
-    return render(request, 'post.html')
+    return render(request, 'feed/post.html')
 
 
 def contact(request):
-    return render(request, 'contact.html')
-
-class AuthorListView(ListView):
-    model = Blog.objects.select_related('author')
+    return render(request, 'feed/contact.html')
 
 
 class UserDetailView(DetailView):

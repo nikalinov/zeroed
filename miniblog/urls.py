@@ -19,9 +19,12 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from feed import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('feed/', include('feed.urls')),
     path('', RedirectView.as_view(url='feed/', permanent=True)),
+    path('account/', include('django.contrib.auth.urls')),
+    path('account/register/', views.register, name='register'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
