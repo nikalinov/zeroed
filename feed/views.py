@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Blog, Comment
+from .models import Blog
+from miniblog.forms import RegisterForm
 
 
 def index(request):
@@ -16,10 +17,16 @@ def register(request):
         form = RegisterForm(request.POST)
 
         if form.is_valid():
-            new_user = User.objects.create_user(form.cleaned_data['username'],
-                                                form.cleaned_data['email'],
-                                                form.cleaned_data['password'],)
+            new_user = User.objects.create_user(
+                form.cleaned_data['username'],
+                form.cleaned_data['email'],
+                form.cleaned_data['password'],
+            )
     else:
+        form = RegisterForm()
+
+    context = {'form': form}
+    return render(request, 'registration/register.html', context=context)
 
 
 def about(request):
