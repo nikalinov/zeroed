@@ -6,12 +6,11 @@ from django.forms import PasswordInput
 
 
 class RegisterForm(ModelForm):
-    password_1 = PasswordInput()
-    password_2 = PasswordInput()
+    password_rep = PasswordInput()
 
     class Meta:
         model = User
-        fields = ['username', 'email']
+        fields = ['first_name', 'last_name', 'username', 'email', 'password']
         help_texts = {'password_2': _('Repeat the password.')}
 
     def clean(self):
