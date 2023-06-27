@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Blog
-from miniblog.forms import RegisterForm
+from miniblog.forms import RegisterForm, LoginForm
 
 
 def index(request):

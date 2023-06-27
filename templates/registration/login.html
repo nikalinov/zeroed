@@ -1,53 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Required meta tags-->
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Colorlib Templates">
+    <meta name="author" content="Colorlib">
+    <meta name="keywords" content="Colorlib Templates">
+
+    <!-- Title Page-->
+    <title>Login</title>
+    {% load static %}
+    <!-- Icons font CSS-->
+    <link href="{% static 'vendor/mdi-font/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/font-awesome-4.7/css/font-awesome.min.css' %}" rel="stylesheet" media="all">
+    <!-- Font special for pages-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Vendor CSS-->
+    <link href="{% static 'vendor/select2/select2.min.css' %}" rel="stylesheet" media="all">
+    <link href="{% static 'vendor/datepicker/daterangepicker.css' %}" rel="stylesheet" media="all">
+
+    <!-- Main CSS-->
+    <link href="{% static 'css/main.css' %}" rel="stylesheet" media="all">
 </head>
+
 <body>
-    <div class="container px-5 my-5">
-        <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-            <div class="form-floating mb-3">
-                <input class="form-control" id="firstName" type="text" placeholder="First name" data-sb-validations="required" />
-                <label for="firstName">First name</label>
-                <div class="invalid-feedback" data-sb-feedback="firstName:required">First name is required.</div>
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" id="lastName" type="text" placeholder="Last name" data-sb-validations="required" />
-                <label for="lastName">Last name</label>
-                <div class="invalid-feedback" data-sb-feedback="lastName:required">Last name is required.</div>
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" id="emailAddress" type="email" placeholder="Email Address" data-sb-validations="required,email" />
-                <label for="emailAddress">Email Address</label>
-                <div class="invalid-feedback" data-sb-feedback="emailAddress:required">Email Address is required.</div>
-                <div class="invalid-feedback" data-sb-feedback="emailAddress:email">Email Address Email is not valid.</div>
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" id="password" type="text" placeholder="Password" data-sb-validations="required" />
-                <label for="password">Password</label>
-                <div class="invalid-feedback" data-sb-feedback="password:required">Password is required.</div>
-            </div>
-            <div class="form-floating mb-3">
-                <input class="form-control" id="repeatPassword" type="text" placeholder="Repeat password" data-sb-validations="required" />
-                <label for="repeatPassword">Repeat password</label>
-                <div class="invalid-feedback" data-sb-feedback="repeatPassword:required">Repeat password is required.</div>
-            </div>
-            <div class="d-none" id="submitSuccessMessage">
-                <div class="text-center mb-3">
-                    <div class="fw-bolder">Form submission successful!</div>
-                    <p>To activate this form, sign up at</p>
-                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+    {% if form.errors %}
+        <p>Your username or password is incorrect. Please try again.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Your account doesn't have access to this page. To proceed,
+              please log in with an account that has access.</p>
+        {% else %}
+            <p>Please login to see this page.</p>
+        {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+            <div class="wrapper wrapper--w790">
+                <div class="card card-5">
+                    <div class="card-heading">
+                        <h2 class="title">Login</h2>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            <div class="form-row">
+                                <label for="username" class="name">{{ form.username.label_tag }}</label>
+                                <div class="value">
+                                    <div class="input-group">
+                                        <input class="input--style-5" type="text" id="username" name="username">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <label for="password" class="name">Password:</label>
+                                <div class="value">
+                                    <div class="input-group">
+                                        <input class="input--style-5" type="password" id="password" name="password">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn--radius-2 btn--red" type="submit">Log in</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <div class="d-none" id="submitErrorMessage">
-                <div class="text-center text-danger mb-3">Error sending message!</div>
-            </div>
-            <div class="d-grid">
-                <button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button>
-            </div>
-        </form>
-    </div>
-    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        </div>
+
+        <!-- Jquery JS-->
+        <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+        <!-- Vendor JS-->
+        <script src="{% static 'vendor/select2/select2.min.js' %}"></script>
+        <script src="{% static 'vendor/datepicker/moment.min.js' %}"></script>
+        <script src="{% static 'vendor/datepicker/daterangepicker.js' %}"></script>
+
+        <!-- Main JS-->
+        <script src="{% static 'js/global.js' %}"></script>
+    </form>
 </body>
 </html>

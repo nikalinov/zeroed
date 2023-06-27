@@ -5,6 +5,12 @@ from django.contrib.auth.models import User
 from django.forms import PasswordInput
 
 
+class LoginForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'password']
+
+
 class RegisterForm(ModelForm):
     password_rep = PasswordInput()
 
