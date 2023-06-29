@@ -14,34 +14,6 @@ def index(request):
     return render(request, 'feed/index.html')
 
 
-def register(request):
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-
-        if form.is_valid():
-            print(form.fields)
-            new_user = User.objects.create_user(
-                form.cleaned_data['username'],
-                form.cleaned_data['email'],
-                form.cleaned_data['password'],
-                first_name=form.cleaned_data['first_name'],
-                last_name=form.cleaned_data['last_name'],
-                is_active=False
-            )
-            return HttpResponseRedirect(
-                reverse('register-success', kwargs={'pk': new_user.pk})
-            )
-    else:
-        form = RegisterForm()
-
-    context = {'form': form}
-    return render(request, 'registration/register.html', context=context)
-
-
-def register_success(request, pk):
-    context = {'username': User.objects.get(pk=pk).username}
-    return render(request, 'registration/register-success.html', context)
-
 def about(request):
     return render(request, 'feed/about.html')
 
