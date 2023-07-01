@@ -769,7 +769,7 @@ input {
   }
 }
 
-input:invalid {
+.invalid-input {
     background-color: ivory;
     border: none;
     outline: 2px solid red;
