@@ -1,3 +1,5 @@
+import re
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.forms import ModelForm, CharField
@@ -22,10 +24,18 @@ class RegisterForm(ModelForm):
         cd = self.cleaned_data
         password, password_rep = cd.get('password'), cd.get('password_rep')
 
-        if password != str(password_rep):
-            raise ValidationError(
-                {'password': _('Error: passwords do not match!')}
-            )
+        error = None
+        if password != password_rep:
+            error = 'Error: passwords do not match!'
+        elif not bool(re.search(r'\d', password)):
+            error = 'Error: password should contain at least 1 digit!'
+        elif not bool(re.search(r'[A-Z]', password)):
+            error = 'Error: password should contain at least 1 uppercase character!'
+        elif len(password) < 8:
+            error = 'Error: the length of the password should be at least 8!'
+
+        if error:
+            raise ValidationError({'password': error})
 
         return cd
 

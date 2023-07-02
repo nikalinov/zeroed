@@ -580,7 +580,7 @@ input {
   line-height: 50px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
-  border-radius: 5px;
+  border-radius: 7px;
   padding: 0 22px;
   font-size: 16px;
   color: #555;
@@ -769,9 +769,6 @@ input {
   }
 }
 
-.invalid-input {
-    background-color: ivory;
-    border: none;
-    outline: 2px solid red;
-    border-radius: 5px;
+.errorlist {
+  color: red;
 }

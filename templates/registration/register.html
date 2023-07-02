@@ -1,9 +1,6 @@
 {% extends 'registration/base_generic.html' %}
 
 {% block content %}
-    {% if form.errors %}
-        <p>Your passwords do not match. Please, try again </p>
-    {% endif %}
     <form method="post" action="{% url 'register' %}">
         {% csrf_token %}
         <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
@@ -50,13 +47,14 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <!-- TODO do something with {{ form.password.errors }}-->
-                                <!-- TODO {% if form.password.errors %}invalid-input{% endif %} -->
                                 <label for="password" class="name">Password:</label>
                                 <div class="value">
-                                    <div class="input-group">
-                                        <input class="input--style-5" type="password" id="password" name="password">
-                                    </div>
+                                  <div class="input-group">
+                                      <input class="input--style-5"
+                                             {% if form.password.errors %}style="border: 2px solid red;"{% endif %}
+                                             type="password" id="password" name="password">
+                                  </div>
+                                  {{ form.password.errors }}
                                 </div>
                             </div>
                             <div class="form-row">
@@ -64,7 +62,9 @@
                                 <label for="password_rep" class="name">Repeat password:</label>
                                 <div class="value">
                                     <div class="input-group">
-                                        <input class="input--style-5" type="password" id="password_rep" name="password_rep">
+                                        <input class="input--style-5"
+                                               {% if form.password.errors %}style="border: 2px solid red;"{% endif %}
+                                               type="password" id="password_rep" name="password_rep">
                                     </div>
                                 </div>
                             </div>
