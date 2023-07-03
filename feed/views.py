@@ -28,7 +28,7 @@ def contact(request):
 
 def profile(request, pk):
     user = User.objects.get(pk=pk)
-    context = {'user': user}
+    context = {'passed_user': user}
     return render(request, 'feed/profile.html', context=context)
 
 
