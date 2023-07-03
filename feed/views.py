@@ -26,8 +26,10 @@ def contact(request):
     return render(request, 'feed/contact.html')
 
 
-class UserDetailView(DetailView):
-    model = User
+def profile(request, pk):
+    user = User.objects.get(pk=pk)
+    context = {'user': user}
+    return render(request, 'feed/profile.html', context=context)
 
 
 class BlogListView(ListView):

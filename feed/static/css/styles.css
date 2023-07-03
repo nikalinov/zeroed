@@ -3692,6 +3692,7 @@ textarea.form-control-lg {
   color: var(--bs-navbar-brand-color);
   white-space: nowrap;
 }
+
 .navbar-brand:hover, .navbar-brand:focus {
   color: var(--bs-navbar-brand-hover-color);
 }
