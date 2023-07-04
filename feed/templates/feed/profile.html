@@ -3,8 +3,10 @@
 {% block title %} Profile {% endblock %}
 
 {% block additional_links %}
+  {% load feed_extras %}
   {% load static %}
   <link href="{% static 'css/profile_style.css' %}" rel="stylesheet"/>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css'>
 {% endblock %}
 
 {% block content %}
@@ -88,10 +90,8 @@
                       <h6 class="mb-0">Blog types</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {% for blog in passed_user.blog_set.all %}
-                        {% for content_type in blog.content_type.all.distinct %}
-                          {{ content_type }}
-                        {% endfor %}
+                      {% for blog, number in passed_user|get_blog_types %}
+                        <span class="tag is-{{ blog|get_color }}">{{ blog }}</span>x{{ number }}
                       {% endfor %}
                     </div>
                   </div>

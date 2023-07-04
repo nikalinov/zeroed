@@ -19,6 +19,7 @@
     <orderEntry type="library" name="all" level="application" />
     <orderEntry type="library" name="sb-forms-latest" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="bulma" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />
