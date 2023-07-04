@@ -25,6 +25,7 @@ def register(request):
                 'registration/register_confirm_email.html',
                 context={
                     'pk': new_user.pk,
+                    'username': User.objects.get(pk=new_user.pk).username,
                     'protocol': 'http',
                     'domain': request.get_host(),
                 }

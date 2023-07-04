@@ -29,7 +29,7 @@
                       <h4>{{ passed_user }}</h4>
                       <p class="text-secondary mb-1">Location: {{ passed_user.userprofile.location }}</p>
                       <p class="text-muted font-size-sm">Reputation: {{ passed_user.userprofile.reputation }}</p>
-                      {% if user.pk != passed_user.pk %}
+                      {% if not user.is_authenticated or user.pk != passed_user.pk %}
                         <button class="btn btn-primary">Follow</button>
                         <button class="btn btn-outline-primary">Message</button>
                       {% endif %}
@@ -88,14 +88,19 @@
                       <h6 class="mb-0">Blog types</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <!--TODO{passed_user.userprofile.get_blog_types %}-->
+                      {% for blog in passed_user.blog_set.all %}
+                        {% for content_type in blog.content_type.all.distinct %}
+                          {{ content_type }}
+                        {% endfor %}
+                      {% endfor %}
                     </div>
                   </div>
                   <hr>
-                  {% if user.pk == passed_user.pk %}
+                  {% if user.is_authenticated and user.pk == passed_user.pk %}
                     <div class="row">
                       <div class="col-sm-12">
                         <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                        <a class="btn btn-info " target="__blank" href="{% url 'logout' %}">Logout</a>
                       </div>
                     </div>
                   {% endif %}

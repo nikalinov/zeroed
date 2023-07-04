@@ -1,0 +1,9 @@
+{% extends 'registration/success_generic.html' %}
+
+{% block title %} Logout {% endblock %}
+{% block header %} Logout {% endblock %}
+
+{% block text %}
+  <p>You have been successfully logged out.</p>
+  <p><a href="{% url 'index' %}">Click here</a> to return to the home page.</p>
+{% endblock %}

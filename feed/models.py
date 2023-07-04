@@ -20,11 +20,13 @@ class UserProfile(models.Model):
     def get_absolute_url(self):
         return reverse('user-detail', kwargs={'pk': self.pk})
 
-    def get_blog_types(self):
+    @property
+    def blog_types(self):
         blog_types = {'ent', 'study'}
         for blog in self.user.blog_set:
             blog_types.update(blog.content_type)
-        return ', '.join(blog for blog in blog_types)
+        return blog_types
+
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
