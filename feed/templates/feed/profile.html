@@ -90,8 +90,8 @@
                       <h6 class="mb-0">Blog types</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      {% for blog, number in passed_user|get_blog_types %}
-                        <span class="tag is-{{ blog|get_color }}">{{ blog }}</span>x{{ number }}
+                      {% for type, number in passed_user|get_blog_types %}
+                        <span class="tag is-{{ type.color }}">{{ type }}</span>x{{ number }}
                       {% endfor %}
                     </div>
                   </div>
@@ -107,7 +107,7 @@
                 </div>
               </div>
 
-              <div class="row gutters-sm">
+              <!--<div class="row gutters-sm">
                 <div class="col-sm-6 mb-3">
                   <div class="card h-100">
                     <div class="card-body">
@@ -162,9 +162,27 @@
                     </div>
                   </div>
                 </div>
-              </div>
-
-
+              </div>-->
+              {% if passed_user.blog_set %}
+                <div class="card mb-3">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col">
+                        <h4 class="mb-0">Blogs</h4>
+                      </div>
+                    </div>
+                    <hr>
+                    {% for blog in passed_user.blog_set.all %}
+                      <div class="row">
+                        <div class="col">
+                          <h6 class="mb-0">{{ forloop.counter }}. {{ blog }}</h6>
+                        </div>
+                      </div>
+                      <hr>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endif %}
 
             </div>
           </div>

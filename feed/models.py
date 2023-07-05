@@ -1,3 +1,4 @@
+from random import choice
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -41,6 +42,23 @@ def save_user_profile(sender, instance, **kwargs):
 
 class ContentType(models.Model):
     type = models.CharField(max_length=100)
+    # assigning random Bulma tag color to blog type when created
+    TAG_COLORS = [
+        ("primary", "primary"),
+        ("info", "info"),
+        ("link", "link"),
+        ("success", "success"),
+        ("black", "black"),
+        ("dark", "dark"),
+        ("light", "light"),
+        ("white", "white"),
+        ("warning", "warning"),
+        ("danger", "danger"),
+    ]
+
+    color = models.CharField(
+        max_length=20, choices=TAG_COLORS, default=choice(TAG_COLORS),
+    )
 
     def __str__(self):
         return self.type
