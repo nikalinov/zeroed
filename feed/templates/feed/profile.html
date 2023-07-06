@@ -119,19 +119,24 @@
                           </button>
                           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" href="{% url 'profile-sorted' passed_user.pk 'title' %}">alphabet</a>
-                            <a class="dropdown-item" href="{% url 'profile-sorted' passed_user.pk 'upvotes' %}">upvotes</a>
+                            <a class="dropdown-item" href="{% url 'profile-sorted' passed_user.pk 'rating' %}">upvotes</a>
                             <a class="dropdown-item" href="{% url 'profile-sorted' passed_user.pk 'views' %}">number of views</a>
-                            <a class="dropdown-item" href="{% url 'profile-sorted' passed_user.pk '-post_date' %}">post date</a>
+                            <a class="dropdown-item" href="{% url 'profile-sorted' passed_user.pk 'post_date' %}">post date</a>
                           </div>
                         </div>
                       </div>
                     </div>
                     <hr>
-                    {% for blog in passed_user.blog_set.all|dictsort:"{{ sorting }}" %}
+                    {% for blog in passed_user.blog_set.all|dictsort:sorting %}
                       <div class="row">
                         <div class="col">
                           <h6 class="mb-0">{{ forloop.counter }}.
                             <a href="{% url 'blog-detail' blog.pk %}">{{ blog }}</a>
+                            <span class="tag is-light">{{ blog.post_date }}</span>
+                            <span class="tag is-light">{{ blog.rating }} upvote{{ blog.rating|pluralize }}</span>
+                          {% for type in blog.content_type.all %}
+                            <span class="tag is-{{ type.color }}">{{ type }}</span>
+                          {% endfor %}
                           </h6>
                         </div>
                       </div>

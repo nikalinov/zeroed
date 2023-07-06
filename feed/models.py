@@ -83,6 +83,8 @@ class Blog(models.Model):
     content_type = models.ManyToManyField(ContentType)
     language = models.ForeignKey(Language, on_delete=models.RESTRICT, null=True)
     content = models.TextField()
+    rating = models.IntegerField(editable=False, default=0)
+    views = models.IntegerField(editable=False, default=0)
 
     class Meta:
         ordering = ['-post_date']

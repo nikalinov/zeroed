@@ -26,7 +26,7 @@ def contact(request):
     return render(request, 'feed/contact.html')
 
 
-def profile(request, pk, sorting='alphabet'):
+def profile(request, pk, sorting='title'):
     user = User.objects.get(pk=pk)
     context = {'passed_user': user, 'sorting': sorting}
     return render(request, 'feed/profile.html', context=context)
