@@ -8,6 +8,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('blogs/', views.BlogListView.as_view(), name='all-blogs'),
     re_path(r'^blog/(?P<pk>\d+)$', views.BlogDetailView.as_view(), name='blog-detail'),
-    re_path(r'^user/(?P<pk>\d+)$', views.profile, name='profile'),
+    path('user/<int:pk>', views.profile, name='profile'),
     path('write/', views.write_view, name='write'),
+    path('user/<int:pk>/sorted/<str:sorting>', views.profile, name='profile-sorted'),
 ]

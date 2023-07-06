@@ -26,10 +26,9 @@ def contact(request):
     return render(request, 'feed/contact.html')
 
 
-def profile(request, pk):
+def profile(request, pk, sorting='alphabet'):
     user = User.objects.get(pk=pk)
-    context = {'passed_user': user}
-    print(user.blog_set)
+    context = {'passed_user': user, 'sorting': sorting}
     return render(request, 'feed/profile.html', context=context)
 
 
