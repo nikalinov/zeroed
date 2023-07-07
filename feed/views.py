@@ -1,12 +1,10 @@
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
+from django.shortcuts import render, redirect
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Blog
-from miniblog.forms import RegisterForm, LoginForm
 
 
 def index(request):
@@ -28,7 +26,13 @@ def contact(request):
 
 def profile(request, pk, sorting='title'):
     user = User.objects.get(pk=pk)
-    context = {'passed_user': user, 'sorting': sorting}
+    reverse_sorting = {'rating', 'views', 'post_date'}
+
+    if sorting in reverse_sorting:
+        sorting = '-' + sorting
+
+    blogs_sorted = user.blog_set.order_by(sorting).all()
+    context = {'passed_user': user, 'blogs_sorted': blogs_sorted}
     return render(request, 'feed/profile.html', context=context)
 
 
@@ -45,3 +49,13 @@ class BlogDetailView(DetailView):
 # @permission_required(feed.can_write, raise_exception=True)
 def write_view(request):
     pass
+
+
+def follow(request, pk):
+    User.objects.get(pk=pk).followers.add(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def unfollow(request, pk):
+    User.objects.get(pk=pk).followers.remove(request.user)
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])

@@ -14,6 +14,7 @@ class UserProfile(models.Model):
     reputation = models.IntegerField(default=0)
     location = models.CharField(max_length=100, choices=COUNTRIES, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
+    followers = models.ManyToManyField(User, related_name='followers')
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'

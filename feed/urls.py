@@ -11,4 +11,6 @@ urlpatterns = [
     path('user/<int:pk>', views.profile, name='profile'),
     path('write/', views.write_view, name='write'),
     path('user/<int:pk>/sorted/<str:sorting>', views.profile, name='profile-sorted'),
+    path('user/<int:pk>/add-follower/', views.follow, name='follow'),
+    path('user/<int:pk>/remove-follower/', views.unfollow, name='unfollow'),
 ]
