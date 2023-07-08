@@ -52,10 +52,10 @@ def write_view(request):
 
 
 def follow(request, pk):
-    User.objects.get(pk=pk).followers.add(request.user)
+    User.objects.get(pk=pk).userprofile.followers.add(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
 def unfollow(request, pk):
-    User.objects.get(pk=pk).followers.remove(request.user)
+    User.objects.get(pk=pk).userprofile.followers.remove(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])

@@ -32,12 +32,12 @@
                       <p class="text-secondary mb-1">Location: {{ passed_user.userprofile.location }}</p>
                       <p class="text-muted font-size-sm">Reputation: {{ passed_user.userprofile.reputation }}</p>
                       {% if not user.is_authenticated or user.pk != passed_user.pk %}
-                        {% if not user.is_authenticated or user not in passed_user.followers.all %}
-                          <button class="btn btn-primary" href="{% url 'follow' passed_user.pk %}">Follow</button>
+                        {% if not user.is_authenticated or user not in passed_user.userprofile.followers.all %}
+                          <a class="btn btn-primary" href="{% url 'follow' passed_user.pk %}">Follow</a>
                         {% else %}
-                          <button class="btn btn-primary" href="{% url 'unfollow' passed_user.pk %}">Unfollow</button>
+                          <a class="btn btn-primary" href="{% url 'unfollow' passed_user.pk %}">Unfollow</a>
                         {% endif %}
-                        <button class="btn btn-outline-primary">Message</button>
+                        <a class="btn btn-outline-primary">Message</a>
                       {% endif %}
                     </div>
                   </div>
