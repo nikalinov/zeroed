@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Blog
+from .forms import ProfileEditForm
+from .models import Blog, UserProfile
 
 
 def index(request):
@@ -59,3 +61,43 @@ def follow(request, pk):
 def unfollow(request, pk):
     User.objects.get(pk=pk).userprofile.followers.remove(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def profile_edit(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    user_profile = user.userprofile
+
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST)
+
+        if form.is_valid():
+            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
+            user_profile.user.first_name = form.cleaned_data['first_name']
+            user_profile.user.last_name = form.cleaned_data['last_name']
+            user_profile.bio = form.cleaned_data['bio']
+            user_profile.user.email = form.cleaned_data['email']
+
+            for resource, user_contact in form.cleaned_data['contacts'].items():
+                user_profile.contacts[resource] = user_contact
+
+            user_profile.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('profile'))
+
+    else:
+        form = ProfileEditForm(
+            initial={
+                'first_name': user_profile.user.first_name,
+                'last_name': user_profile.user.last_name,
+                'bio': user_profile.bio,
+                'email': user_profile.user.email,
+                'contacts': dict(**user_profile.contacts)
+            }
+        )
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'feed/profile_edit.html', context)

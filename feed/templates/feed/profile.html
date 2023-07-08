@@ -31,7 +31,7 @@
                       <h4>{{ passed_user }}</h4>
                       <p class="text-secondary mb-1">Location: {{ passed_user.userprofile.location }}</p>
                       <p class="text-muted font-size-sm">Reputation: {{ passed_user.userprofile.reputation }}</p>
-                      {% if not user.is_authenticated or user.pk != passed_user.pk %}
+                      {% if not user.is_authenticated or passed_user and user.pk != passed_user.pk %}
                         {% if not user.is_authenticated or user not in passed_user.userprofile.followers.all %}
                           <a class="btn btn-primary" href="{% url 'follow' passed_user.pk %}">Follow</a>
                         {% else %}
@@ -43,6 +43,7 @@
                   </div>
                 </div>
               </div>
+              {% block left_form %}
               <div class="card mt-3">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -67,9 +68,11 @@
                   </li>
                 </ul>
               </div>
+              {% endblock %}
             </div>
             <div class="col-md-8">
               <div class="card mb-3">
+                {% block right_form %}
                 <div class="card-body">
                   <div class="row">
                     <div class="col-sm-3">
@@ -103,14 +106,14 @@
                   {% if user.is_authenticated and user.pk == passed_user.pk %}
                     <div class="row">
                       <div class="col-sm-12">
-                        <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                        <a class="btn btn-info " target="__blank" href="{% url 'logout' %}">Logout</a>
+                        <a class="btn btn-info " href="{% url 'profile-edit' user.pk %}">Edit</a>
+                        <a class="btn btn-info " href="{% url 'logout' %}">Logout</a>
                       </div>
                     </div>
                   {% endif %}
                 </div>
+                {% endblock %}
               </div>
-
               {% if passed_user.blog_set %}
                 <div class="card mb-3">
                   <div class="card-body">
