@@ -31,7 +31,7 @@
                       <h4>{{ passed_user }}</h4>
                       <p class="text-secondary mb-1">Location: {{ passed_user.userprofile.location }}</p>
                       <p class="text-muted font-size-sm">Reputation: {{ passed_user.userprofile.reputation }}</p>
-                      {% if not user.is_authenticated or passed_user and user.pk != passed_user.pk %}
+                      {% if not user.is_authenticated or user.pk != passed_user.pk %}
                         {% if not user.is_authenticated or user not in passed_user.userprofile.followers.all %}
                           <a class="btn btn-primary" href="{% url 'follow' passed_user.pk %}">Follow</a>
                         {% else %}
@@ -106,7 +106,7 @@
                   {% if user.is_authenticated and user.pk == passed_user.pk %}
                     <div class="row">
                       <div class="col-sm-12">
-                        <a class="btn btn-info " href="{% url 'profile-edit' user.pk %}">Edit</a>
+                        <a class="btn btn-info " href="{% url 'profile-edit' user.pk 'edit' %}">Edit</a>
                         <a class="btn btn-info " href="{% url 'logout' %}">Logout</a>
                       </div>
                     </div>

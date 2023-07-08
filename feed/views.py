@@ -26,8 +26,9 @@ def contact(request):
     return render(request, 'feed/contact.html')
 
 
-def profile(request, pk, sorting='title'):
-    user = User.objects.get(pk=pk)
+def profile(request, pk, sorting='title', edit=''):
+    user = get_object_or_404(User, pk=pk)
+    user_profile = user.userprofile
     reverse_sorting = {'rating', 'views', 'post_date'}
 
     if sorting in reverse_sorting:
@@ -35,7 +36,39 @@ def profile(request, pk, sorting='title'):
 
     blogs_sorted = user.blog_set.order_by(sorting).all()
     context = {'passed_user': user, 'blogs_sorted': blogs_sorted}
-    return render(request, 'feed/profile.html', context=context)
+    if not edit:
+        return render(request, 'feed/profile.html', context=context)
+
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST)
+
+        if form.is_valid():
+            user_profile.user.first_name = form.cleaned_data['first_name']
+            user_profile.user.last_name = form.cleaned_data['last_name']
+            user_profile.bio = form.cleaned_data['bio']
+            user_profile.user.email = form.cleaned_data['email']
+
+            for resource, user_contact in form.cleaned_data['contacts'].items():
+                user_profile.contacts[resource] = user_contact
+
+            user_profile.save()
+
+            # redirect to a new URL:
+            return HttpResponseRedirect(reverse('profile'))
+
+    else:
+        form = ProfileEditForm(
+            initial={
+                'first_name': user_profile.user.first_name,
+                'last_name': user_profile.user.last_name,
+                'bio': user_profile.bio,
+                'email': user_profile.user.email,
+                'contacts': dict(**user_profile.contacts)
+            }
+        )
+
+    context['form'] = form
+    return render(request, 'feed/profile_edit.html', context=context)
 
 
 class BlogListView(ListView):
@@ -61,43 +94,3 @@ def follow(request, pk):
 def unfollow(request, pk):
     User.objects.get(pk=pk).userprofile.followers.remove(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
-
-
-def profile_edit(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    user_profile = user.userprofile
-
-    if request.method == 'POST':
-        form = ProfileEditForm(request.POST)
-
-        if form.is_valid():
-            # process the data in form.cleaned_data as required (here we just write it to the model due_back field)
-            user_profile.user.first_name = form.cleaned_data['first_name']
-            user_profile.user.last_name = form.cleaned_data['last_name']
-            user_profile.bio = form.cleaned_data['bio']
-            user_profile.user.email = form.cleaned_data['email']
-
-            for resource, user_contact in form.cleaned_data['contacts'].items():
-                user_profile.contacts[resource] = user_contact
-
-            user_profile.save()
-
-            # redirect to a new URL:
-            return HttpResponseRedirect(reverse('profile'))
-
-    else:
-        form = ProfileEditForm(
-            initial={
-                'first_name': user_profile.user.first_name,
-                'last_name': user_profile.user.last_name,
-                'bio': user_profile.bio,
-                'email': user_profile.user.email,
-                'contacts': dict(**user_profile.contacts)
-            }
-        )
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'feed/profile_edit.html', context)

@@ -34,19 +34,25 @@
     <div class="card-body">
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Full Name</h6>
+          <label class="mb-0" for="first_name">First name</label>
         </div>
         <div class="col-sm-9 text-secondary">
-          {{ passed_user.userprofile }}
+          <input id="first_name" name="first_name" value="{{ passed_user.first_name }}">
+        </div>
+        <div class="col-sm-3">
+          <label class="mb-0" for="last_name">Last name</label>
+        </div>
+        <div class="col-sm-9 text-secondary">
+          <input id="last_name" name="last_name" value="{{ passed_user.last_name }}">
         </div>
       </div>
       <hr>
       <div class="row">
         <div class="col-sm-3">
-          <h6 class="mb-0">Email</h6>
+          <label class="mb-0" for="email">Email</label>
         </div>
         <div class="col-sm-9 text-secondary">
-          {{ passed_user.email }}
+          <input id="email" name="email" value="{{ passed_user.email }}">
         </div>
       </div>
       <hr>
