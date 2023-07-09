@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .forms import ProfileEditForm
-from .models import Blog, UserProfile
+from .models import Blog
 
 
 def index(request):
@@ -48,8 +48,11 @@ def profile(request, pk, sorting='title', edit=''):
             user_profile.bio = form.cleaned_data['bio']
             user_profile.user.email = form.cleaned_data['email']
 
-            for resource, user_contact in form.cleaned_data['contacts'].items():
-                user_profile.contacts[resource] = user_contact
+            user_profile.website = form.cleaned_data['website']
+            user_profile.github = form.cleaned_data['github']
+            user_profile.instagram = form.cleaned_data['instagram']
+            user_profile.twitter = form.cleaned_data['twitter']
+            user_profile.facebook = form.cleaned_data['facebook']
 
             user_profile.save()
 
@@ -63,7 +66,11 @@ def profile(request, pk, sorting='title', edit=''):
                 'last_name': user_profile.user.last_name,
                 'bio': user_profile.bio,
                 'email': user_profile.user.email,
-                'contacts': dict(**user_profile.contacts)
+                'website': user_profile.website,
+                'github': user_profile.github,
+                'instagram': user_profile.instagram,
+                'twitter': user_profile.twitter,
+                'facebook': user_profile.facebook,
             }
         )
 

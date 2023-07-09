@@ -16,13 +16,11 @@ class UserProfile(models.Model):
     birth_date = models.DateField(blank=True, null=True)
     followers = models.ManyToManyField(User, related_name='followers')
 
-    contacts = {
-        'website': models.CharField(max_length=100, blank=True),
-        'github': models.CharField(max_length=100, blank=True),
-        'twitter': models.CharField(max_length=100, blank=True),
-        'instagram': models.CharField(max_length=100, blank=True),
-        'facebook': models.CharField(max_length=100, blank=True),
-    }
+    website = models.CharField(max_length=100, blank=True)
+    github = models.CharField(max_length=100, blank=True)
+    twitter = models.CharField(max_length=100, blank=True)
+    instagram = models.CharField(max_length=100, blank=True)
+    facebook = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
