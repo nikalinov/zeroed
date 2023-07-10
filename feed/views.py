@@ -27,6 +27,7 @@ def contact(request):
 
 
 def profile(request, pk, sorting='title', edit=''):
+    print("aaaaaaaaaaaaaa")
     user = get_object_or_404(User, pk=pk)
     user_profile = user.userprofile
     reverse_sorting = {'rating', 'views', 'post_date'}
@@ -64,7 +65,6 @@ def profile(request, pk, sorting='title', edit=''):
             initial={
                 'first_name': user_profile.user.first_name,
                 'last_name': user_profile.user.last_name,
-                'bio': user_profile.bio,
                 'email': user_profile.user.email,
                 'website': user_profile.website,
                 'github': user_profile.github,
@@ -83,10 +83,6 @@ class BlogListView(ListView):
     paginate_by = 5
 
 
-class BlogDetailView(DetailView):
-    model = Blog
-
-
 @login_required
 # @permission_required(feed.can_write, raise_exception=True)
 def write_view(request):
@@ -101,3 +97,8 @@ def follow(request, pk):
 def unfollow(request, pk):
     User.objects.get(pk=pk).userprofile.followers.remove(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
+
+
+def blog(request, pk):
+    context = {'blog': Blog.objects.get(pk=pk)}
+    return render(request, 'feed/blog.html', context=context)

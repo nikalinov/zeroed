@@ -138,7 +138,7 @@
                       <div class="row">
                         <div class="col">
                           <h6 class="mb-0">{{ forloop.counter }}.
-                            <a href="{% url 'blog-detail' blog.pk %}">{{ blog }}</a>
+                            <a href="{% url 'blog' blog.pk %}">{{ blog }}</a>
                             <span class="tag is-light">{{ blog.post_date }}</span>
                             <span class="tag is-light">{{ blog.views }} views</span>
                             <span class="tag is-light">{{ blog.rating }} rating</span>

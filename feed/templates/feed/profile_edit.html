@@ -2,8 +2,9 @@
 {% load feed_extras %}
 
 
-<form action="{% url 'profile-edit' %}" method="POST">
+<form action="" method="POST">
   {% csrf_token %}
+  <input type="submit" value="Submit"/>
   {% block left_form %}
     <div class="card mt-3">
       <ul class="list-group list-group-flush">
@@ -70,7 +71,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-12">
-          <input class="btn btn-info submit" type="submit" value="Save">
+          <input class="btn btn-info submit" type="submit" value="Submit"/>
         </div>
       </div>
     </div>
