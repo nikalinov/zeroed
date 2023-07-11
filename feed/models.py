@@ -90,7 +90,7 @@ class Blog(models.Model):
     content_type = models.ManyToManyField(ContentType)
     language = models.ForeignKey(Language, on_delete=models.RESTRICT, null=True)
     content = models.TextField()
-    rating = models.IntegerField(editable=False, default=0)
+    upvoters = models.ManyToManyField(User, related_name='upvoters')
     views = models.IntegerField(editable=False, default=0)
 
     class Meta:
@@ -104,6 +104,9 @@ class Blog(models.Model):
 
     def get_content_type(self):
         return ', '.join(str(cont_type) for cont_type in self.content_type.all())
+
+    def get_rating(self):
+        return len(self.upvoters.all())
 
 
 class Comment(models.Model):

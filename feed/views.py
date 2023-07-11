@@ -27,7 +27,6 @@ def contact(request):
 
 
 def profile(request, pk, sorting='title', edit=''):
-    print("aaaaaaaaaaaaaa")
     user = get_object_or_404(User, pk=pk)
     user_profile = user.userprofile
     reverse_sorting = {'rating', 'views', 'post_date'}
@@ -99,6 +98,21 @@ def unfollow(request, pk):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-def blog(request, pk):
-    context = {'blog': Blog.objects.get(pk=pk)}
+def blog_view(request, pk):
+    blog = Blog.objects.get(pk=pk)
+    blog.views += 1
+    blog.save()
+    context = {'blog': blog}
     return render(request, 'feed/blog.html', context=context)
+
+
+def rate_view(request, pk):
+    print(request)
+    blog = Blog.objects.get(pk=pk)
+    user = User.objects.get(pk=request.user.pk)
+    if user in blog.upvoters.all():
+        blog.upvoters.remove(User.objects.get(pk=request.user.pk))
+    else:
+        blog.upvoters.add(User.objects.get(pk=request.user.pk))
+    return request.META.get('HTTP_REFERER')
+

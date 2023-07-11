@@ -141,7 +141,7 @@
                             <a href="{% url 'blog' blog.pk %}">{{ blog }}</a>
                             <span class="tag is-light">{{ blog.post_date }}</span>
                             <span class="tag is-light">{{ blog.views }} views</span>
-                            <span class="tag is-light">{{ blog.rating }} rating</span>
+                            <span class="tag is-light">{{ blog.get_rating }} rating</span>
                           {% for type in blog.content_type.all %}
                             <span class="tag is-{{ type.color }}">{{ type }}</span>
                           {% endfor %}

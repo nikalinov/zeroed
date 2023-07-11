@@ -7,11 +7,12 @@ urlpatterns = [
     path('post/', views.post, name='post'),
     path('contact/', views.contact, name='contact'),
     path('blogs/', views.BlogListView.as_view(), name='all-blogs'),
-    re_path(r'^blog/(?P<pk>\d+)$', views.blog, name='blog'),
+    path('blog/<int:pk>', views.blog_view, name='blog'),
     path('user/<int:pk>', views.profile, name='profile'),
     path('write/', views.write_view, name='write'),
     path('user/<int:pk>/sorted/<str:sorting>', views.profile, name='profile-sorted'),
     path('user/<int:pk>/add-follower/', views.follow, name='follow'),
     path('user/<int:pk>/remove-follower/', views.unfollow, name='unfollow'),
     path('user/<int:pk>/<str:edit>', views.profile, name='profile-edit'),
+    path('blog/<int:pk>/rate', views.rate_view, name='rate')
 ]
