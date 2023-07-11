@@ -10823,3 +10823,16 @@ padding-right: .75em;
 .card-registration .select-arrow {
 top: 13px;
 }
+
+div.transbox {
+  background: rgba(0, 0, 0, 0.5);
+  margin: 30px;
+  border-radius: 30px;
+}
+
+.wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  max-width:1160px;
+  padding: 20px 100px;
+}

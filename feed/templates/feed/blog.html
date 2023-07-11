@@ -1,7 +1,35 @@
 {% extends 'base_generic.html' %}
+{% load static %}
 
-{% block title %} Blog {% endblock %}
+{% block title %} {{ blog.title }} {% endblock %}
 
-{% block header %} Header {% endblock %}
-
-{% block content %} Content {% endblock %}
+<div class="wrapper">
+  {% block header %}
+    <header class="masthead" style="background-image: url('{% static 'assets/img/post-bg.jpg' %}')">
+      <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <div class="site-heading">
+              <div class="page-heading">
+                <div class="post-heading">
+                  <div class="transbox">
+                    <h1>{{ blog.title }}</h1>
+                    <!--<h2 class="subheading">blog.intro</h2>-->
+                    <span class="meta">Posted by
+                      <a href="{% url 'profile' blog.author.pk %}">{{ blog.author }}</a> on {{ blog.post_date }}
+                    </span>
+                    <span class="meta" style="padding: 20px 10px">
+                      <i class="fa-regular fa-heart fa-lg" style="color: #ffffff;"></i> {{ blog.rating }}
+                      <i class="fa-sharp fa-light fa-eye fa-lg" style="color: #ffffff;"></i> {{ blog.views }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  {% endblock %}
+  {% block content %} Content {% endblock %}
+</div>
