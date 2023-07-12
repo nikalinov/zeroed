@@ -1,0 +1,16 @@
+{% extends 'base_generic.html' %}
+
+{% block title %} Create blog {% endblock %}
+
+{% block additional_links %} {{ form.media }} {% endblock %}
+
+{% block header %}<h1>Create a blog</h1>{% endblock %}
+
+{% block content %}
+  <div style="padding-top: 50px;">
+    <form action="" method="POST">
+      {% csrf_token %}
+      {{ form.content }}
+    </form>
+  </div>
+{% endblock %}

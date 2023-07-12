@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
 from .forms import ProfileEditForm
 from .models import Blog
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 
 def index(request):
@@ -116,5 +117,23 @@ def rate_view(request, pk):
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
-def create_blog(request):
-    pass
+class BlogCreateView(LoginRequiredMixin, CreateView):
+    model = Blog
+    fields = ['title', 'content']
+    success_url = reverse_lazy('blog', kwargs={'pk': model.pk})
+
+    #def form_valid(self, form):
+    #    form.instance.created_by = self.request.user
+    #    return super().form_valid(form)
+
+
+class BlogUpdateView(LoginRequiredMixin, UpdateView):
+    model = Blog
+    fields = ['title', 'content']
+    success_url = reverse_lazy('blog', kwargs={'pk': model.pk})
+
+
+class BlogDeleteView(DeleteView):
+    model = Blog
+    # TODO kwargs={pk: user.pk}
+    success_url = reverse_lazy('profile')

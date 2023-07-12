@@ -4,6 +4,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import now
 from django.db import models
+from django_quill.quill import Quill
+
 from feed.countries import COUNTRIES
 from django.urls import reverse
 from django_quill.fields import QuillField
@@ -108,6 +110,18 @@ class Blog(models.Model):
 
     def get_rating(self):
         return len(self.upvoters.all())
+
+    @staticmethod
+    def get_quill(value):
+        quill = Quill({
+            'html': '<p>%s</p>' % value,
+            'delta': {
+                "ops": [
+                    {"insert": "%s\\n" % value}
+                ]
+            }
+        })
+        return quill
 
 
 class Comment(models.Model):

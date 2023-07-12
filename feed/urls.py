@@ -15,5 +15,7 @@ urlpatterns = [
     path('user/<int:pk>/remove-follower/', views.unfollow, name='unfollow'),
     path('user/<int:pk>/<str:edit>', views.profile, name='profile-edit'),
     path('blog/<int:pk>/rate', views.rate_view, name='rate'),
-    path('blog/create', views.create_blog, name='blog-create')
+    path('blog/create', views.BlogCreateView.as_view(), name='blog-create'),
+    path('blog/<int:pk>/update', views.BlogUpdateView.as_view(), name='blog-update'),
+    path('blog/<int:pk>/delete', views.BlogDeleteView.as_view(), name='blog-delete'),
 ]

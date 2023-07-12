@@ -1,6 +1,4 @@
 from django import forms
-from django_quill.fields import QuillField
-
 
 class ProfileEditForm(forms.Form):
     first_name = forms.CharField(max_length=100)
