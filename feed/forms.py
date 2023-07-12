@@ -1,4 +1,5 @@
 from django import forms
+from django_quill.fields import QuillField
 
 
 class ProfileEditForm(forms.Form):
@@ -13,4 +14,9 @@ class ProfileEditForm(forms.Form):
     twitter = forms.CharField(max_length=100, required=False)
     instagram = forms.CharField(max_length=100, required=False)
     facebook = forms.CharField(max_length=100, required=False)
+
+
+class BlogEditForm(forms.ModelForm):
+    class Meta:
+        fields = ['title', 'content']
 

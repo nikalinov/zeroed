@@ -107,12 +107,14 @@ def blog_view(request, pk):
 
 
 def rate_view(request, pk):
-    print(request)
     blog = Blog.objects.get(pk=pk)
     user = User.objects.get(pk=request.user.pk)
     if user in blog.upvoters.all():
         blog.upvoters.remove(User.objects.get(pk=request.user.pk))
     else:
         blog.upvoters.add(User.objects.get(pk=request.user.pk))
-    return request.META.get('HTTP_REFERER')
+    return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
+
+def create_blog(request):
+    pass

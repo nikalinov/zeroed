@@ -6,6 +6,7 @@ from django.utils.timezone import now
 from django.db import models
 from feed.countries import COUNTRIES
 from django.urls import reverse
+from django_quill.fields import QuillField
 
 
 class UserProfile(models.Model):
@@ -89,7 +90,7 @@ class Blog(models.Model):
     post_date = models.DateField(default=now)
     content_type = models.ManyToManyField(ContentType)
     language = models.ForeignKey(Language, on_delete=models.RESTRICT, null=True)
-    content = models.TextField()
+    content = QuillField()
     upvoters = models.ManyToManyField(User, related_name='upvoters')
     views = models.IntegerField(editable=False, default=0)
 

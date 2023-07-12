@@ -23,6 +23,9 @@
     <orderEntry type="library" name="bootstrap" level="application" />
     <orderEntry type="library" name="bulma" level="application" />
     <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="quill" level="application" />
+    <orderEntry type="library" name="quill.core" level="application" />
+    <orderEntry type="library" name="quill.bubble" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

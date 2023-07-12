@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_truncate',
     'bootstrap5',
     'password_reset',
+    'django_quill',
 ]
 
 MIDDLEWARE = [

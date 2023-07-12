@@ -14,5 +14,6 @@ urlpatterns = [
     path('user/<int:pk>/add-follower/', views.follow, name='follow'),
     path('user/<int:pk>/remove-follower/', views.unfollow, name='unfollow'),
     path('user/<int:pk>/<str:edit>', views.profile, name='profile-edit'),
-    path('blog/<int:pk>/rate', views.rate_view, name='rate')
+    path('blog/<int:pk>/rate', views.rate_view, name='rate'),
+    path('blog/create', views.create_blog, name='blog-create')
 ]
