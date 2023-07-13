@@ -26,6 +26,7 @@
     <orderEntry type="library" name="quill" level="application" />
     <orderEntry type="library" name="quill.core" level="application" />
     <orderEntry type="library" name="quill.bubble" level="application" />
+    <orderEntry type="library" name="all" level="application" />
   </component>
   <component name="PyDocumentationSettings">
     <option name="format" value="PLAIN" />

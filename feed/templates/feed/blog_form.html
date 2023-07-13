@@ -4,10 +4,11 @@
 
 {% block additional_links %} {{ form.media }} {% endblock %}
 
-{% block header %}<h1>Create a blog</h1>{% endblock %}
+{% block navbar-extra-classes %}bg-dark{% endblock %}
 
 {% block content %}
-  <div style="padding-top: 50px;">
+  <div style="padding-top: 100px;">
+    <h1 class="justify-content-center" style="display: flex;">Create a blog</h1>
     <form action="" method="POST">
       {% csrf_token %}
       {{ form.content }}
