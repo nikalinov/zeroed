@@ -5,7 +5,6 @@ from django.dispatch import receiver
 from django.utils.timezone import now
 from django.db import models
 from django_quill.quill import Quill
-
 from feed.countries import COUNTRIES
 from django.urls import reverse
 from django_quill.fields import QuillField

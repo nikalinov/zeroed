@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
-from .forms import ProfileEditForm
+from .forms import ProfileEditForm, BlogForm
 from .models import Blog
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
@@ -17,10 +17,6 @@ def index(request):
 
 def about(request):
     return render(request, 'feed/about.html')
-
-
-def post(request):
-    return render(request, 'feed/post.html')
 
 
 def contact(request):
@@ -83,12 +79,6 @@ class BlogListView(ListView):
     paginate_by = 5
 
 
-@login_required
-# @permission_required(feed.can_write, raise_exception=True)
-def write_view(request):
-    pass
-
-
 def follow(request, pk):
     User.objects.get(pk=pk).userprofile.followers.add(request.user)
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
@@ -118,13 +108,15 @@ def rate_view(request, pk):
 
 
 class BlogCreateView(LoginRequiredMixin, CreateView):
-    model = Blog
-    fields = ['title', 'content']
-    success_url = reverse_lazy('blog', kwargs={'pk': model.pk})
+    form_class = BlogForm
+    template_name = 'feed/blog_form.html'
 
-    #def form_valid(self, form):
-    #    form.instance.created_by = self.request.user
-    #    return super().form_valid(form)
+    def get_success_url(self):
+        return reverse_lazy('blog', kwargs={'pk': self.object.pk})
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
 class BlogUpdateView(LoginRequiredMixin, UpdateView):

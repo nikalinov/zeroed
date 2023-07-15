@@ -27,3 +27,7 @@ window.addEventListener('DOMContentLoaded', () => {
         scrollPos = currentTop;
     });
 })
+
+$(".chosen-select").chosen({
+  no_results_text: "Oops, nothing found!"
+})

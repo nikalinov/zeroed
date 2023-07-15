@@ -4,12 +4,10 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('about/', views.about, name='about'),
-    path('post/', views.post, name='post'),
     path('contact/', views.contact, name='contact'),
     path('blogs/', views.BlogListView.as_view(), name='all-blogs'),
     path('blog/<int:pk>', views.blog_view, name='blog'),
     path('user/<int:pk>', views.profile, name='profile'),
-    path('write/', views.write_view, name='write'),
     path('user/<int:pk>/sorted/<str:sorting>', views.profile, name='profile-sorted'),
     path('user/<int:pk>/add-follower/', views.follow, name='follow'),
     path('user/<int:pk>/remove-follower/', views.unfollow, name='unfollow'),

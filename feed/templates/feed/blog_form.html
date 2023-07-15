@@ -2,16 +2,26 @@
 
 {% block title %} Create blog {% endblock %}
 
-{% block additional_links %} {{ form.media }} {% endblock %}
+{% block additional_links %}
+  {{ form.media }}
+{% endblock %}
 
 {% block navbar-extra-classes %}bg-dark{% endblock %}
 
 {% block content %}
   <div style="padding-top: 100px;">
-    <h1 class="justify-content-center" style="display: flex;">Create a blog</h1>
-    <form action="" method="POST">
-      {% csrf_token %}
-      {{ form.content }}
-    </form>
+    <div class="justify-content-center" style="display: flex;">
+      <h1>Create a blog</h1>
+    </div>
+    <div class="justify-content-center" style="display: flex;">
+      <form action="" method="POST">
+        {% csrf_token %}
+        Title: {{ form.title }}
+        Language: {{ form.language }}
+        {{ form.content }}
+        <div>Content type(s):</div>{{ form.content_type }}
+        <div><button class="btn btn-dark" type="submit">Post</button></div>
+      </form>
+    </div>
   </div>
 {% endblock %}

@@ -1,6 +1,8 @@
 from collections import defaultdict
 from django import template
 from django.contrib.auth.models import User
+from bleach import clean
+
 
 register = template.Library()
 
@@ -12,4 +14,9 @@ def get_blog_types(user: User) -> list[tuple]:
         for content_type in blog.content_type.all():
             types[content_type] += 1
     return list(types.items())
+
+
+@register.filter
+def bleach(html_content):
+    return clean(html_content)
 
