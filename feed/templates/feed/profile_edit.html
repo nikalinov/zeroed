@@ -4,7 +4,6 @@
 
 <form action="" method="POST">
   {% csrf_token %}
-  <input type="submit" value="Submit"/>
   {% block left_form %}
     <div class="card mt-3">
       <ul class="list-group list-group-flush">
@@ -71,7 +70,7 @@
       <hr>
       <div class="row">
         <div class="col-sm-12">
-          <input class="btn btn-info" type="submit" value="Submit"/>
+          <button class="btn btn-info" type="submit">Submit</button>
         </div>
       </div>
     </div>

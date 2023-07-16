@@ -25,9 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('feed/', include('feed.urls')),
     path('', RedirectView.as_view(url='feed/', permanent=True)),
-    path('account/', include('django.contrib.auth.urls')),
-    path('account/register/', views.register, name='register'),
-    path('account/register/success/<int:pk>', views.register_success, name='register-success'),
-    path('account/register/confirm/<int:pk>', views.register_confirm, name='register-confirm'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', views.register, name='register'),
+    path('accounts/register/success/<int:pk>', views.register_success, name='register-success'),
+    path('accounts/register/confirm/<int:pk>', views.register_confirm, name='register-confirm'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

@@ -22,7 +22,6 @@ class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
         fields = ['title', 'content', 'content_type', 'language']
-
     # TODO
     """
     def clean_content(self):
@@ -33,3 +32,14 @@ class BlogForm(forms.ModelForm):
             raise ValidationError(f'There should be at least {content_len} characters in the blog!')
         return content
     """
+
+
+class ContactForm(forms.Form):
+    message = forms.Textarea()
+
+    def clean_message(self):
+        msg = self.cleaned_data['message']
+        min_len = 10
+        if len(msg) < min_len:
+            return ValidationError(f'Message should be at least {min_len} characters long!')
+        return msg

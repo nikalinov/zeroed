@@ -1,13 +1,12 @@
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
-from .forms import ProfileEditForm, BlogForm
+from .forms import ProfileEditForm, BlogForm, ContactForm
 from .models import Blog
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
 
 def index(request):
@@ -19,8 +18,14 @@ def about(request):
     return render(request, 'feed/about.html')
 
 
-def contact(request):
-    return render(request, 'feed/contact.html')
+class ContactFormView(LoginRequiredMixin, FormView):
+    template_name = 'feed/contact.html'
+    form_class = ContactForm
+    success_url = reverse_lazy('contact-success')
+
+
+def contact_success(request):
+    return render(request, 'feed/contact_success.html')
 
 
 def profile(request, pk, sorting='title', edit=''):
