@@ -9,6 +9,8 @@ from feed.countries import COUNTRIES
 from django.urls import reverse
 from django_quill.fields import QuillField
 
+from miniblog.settings import env
+
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -131,3 +133,13 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-post_date']
+
+
+class ContactRequest(models.Model):
+    subject = models.CharField(max_length=100, help_text='Enter the subject...')
+    message = models.TextField(help_text='Enter your message here...')
+    recipient = env('EMAIL_HOST_USER')
+    sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+
+

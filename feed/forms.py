@@ -1,7 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
 
-from feed.models import Blog
+from feed.models import Blog, ContactRequest
 
 
 class ProfileEditForm(forms.Form):
@@ -34,8 +34,9 @@ class BlogForm(forms.ModelForm):
     """
 
 
-class ContactForm(forms.Form):
-    message = forms.Textarea()
+class ContactRequestForm(forms.ModelForm):
+    class Meta:
+        model = ContactRequest
 
     def clean_message(self):
         msg = self.cleaned_data['message']

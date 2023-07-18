@@ -1,9 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
+
+from miniblog.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactForm
 from .models import Blog
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
@@ -19,9 +22,20 @@ def about(request):
 
 
 class ContactFormView(LoginRequiredMixin, FormView):
-    template_name = 'feed/contact.html'
+    template_name = 'feed/contact_form.html'
     form_class = ContactForm
     success_url = reverse_lazy('contact-success')
+
+    def form_valid(self, form):
+        # This method is called when valid form data has been POSTed.
+        # It should return an HttpResponse.
+        send_mail(
+            form.subject,
+            from_email=form.cleaned_data['email'],
+            recipient_list=[env('EMAIL_HOST_USER')],
+            message=form.message,
+        )
+        return super().form_valid(form)
 
 
 def contact_success(request):
