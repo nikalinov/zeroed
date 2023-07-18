@@ -3,11 +3,11 @@ from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.template.defaulttags import url
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
-
 from miniblog.settings import env
-from .forms import ProfileEditForm, BlogForm, ContactForm
+from .forms import ProfileEditForm, BlogForm, ContactRequestForm
 from .models import Blog
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
@@ -23,7 +23,7 @@ def about(request):
 
 class ContactFormView(LoginRequiredMixin, FormView):
     template_name = 'feed/contact_form.html'
-    form_class = ContactForm
+    form_class = ContactRequestForm
     success_url = reverse_lazy('contact-success')
 
     def form_valid(self, form):
@@ -31,11 +31,11 @@ class ContactFormView(LoginRequiredMixin, FormView):
         # It should return an HttpResponse.
         send_mail(
             form.subject,
-            from_email=form.cleaned_data['email'],
+            from_email=form.sender.email,
             recipient_list=[env('EMAIL_HOST_USER')],
             message=form.message,
         )
-        return super().form_valid(form)
+        return HttpResponseRedirect(url('contact-success'))
 
 
 def contact_success(request):

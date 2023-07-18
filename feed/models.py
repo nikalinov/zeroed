@@ -138,7 +138,6 @@ class Comment(models.Model):
 class ContactRequest(models.Model):
     subject = models.CharField(max_length=100, help_text='Enter the subject...')
     message = models.TextField(help_text='Enter your message here...')
-    recipient = env('EMAIL_HOST_USER')
     sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 
 

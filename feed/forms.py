@@ -37,6 +37,7 @@ class BlogForm(forms.ModelForm):
 class ContactRequestForm(forms.ModelForm):
     class Meta:
         model = ContactRequest
+        fields = ['subject', 'message', 'sender']
 
     def clean_message(self):
         msg = self.cleaned_data['message']
