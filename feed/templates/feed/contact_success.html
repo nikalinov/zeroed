@@ -2,4 +2,8 @@
 
 {% block header %} Contact request sent {% endblock %}
 
-{% block text %} Thank you, ....... {% endblock %}
+{% block text %}
+  <p>Thank you for the request, {{ username }}!
+  We will get back to you as soon as possible.</p>
+  <p><a href="{% url 'index' %}">Click here</a> to return to the home page.</p>
+{% endblock %}

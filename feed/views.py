@@ -29,17 +29,23 @@ class ContactFormView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         # This method is called when valid form data has been POSTed.
         # It should return an HttpResponse.
+        contact_request = form.save(commit=False)
+        contact_request.sender = self.request.user
+        contact_request.save()
+
+        # TODO use SendGrid or smth for alternate from_email
         send_mail(
-            form.subject,
-            from_email=form.sender.email,
+            subject=contact_request.subject,
+            from_email=contact_request.sender.email,
             recipient_list=[env('EMAIL_HOST_USER')],
-            message=form.message,
+            message=contact_request.message,
         )
-        return HttpResponseRedirect(url('contact-success'))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 def contact_success(request):
-    return render(request, 'feed/contact_success.html')
+    context = {'username': request.user.username}
+    return render(request, 'feed/contact_success.html', context=context)
 
 
 def profile(request, pk, sorting='title', edit=''):
