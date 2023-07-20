@@ -42,5 +42,7 @@ class ContactRequestForm(forms.ModelForm):
         msg = self.cleaned_data['message']
         min_len = 10
         if len(msg) < min_len:
-            return ValidationError(f'Message should be at least {min_len} characters long!')
+            raise ValidationError(f'Message should be at least {min_len} characters long!')
         return msg
+
+
