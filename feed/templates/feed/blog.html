@@ -46,14 +46,22 @@
 
 {% block content %}
   <!-- Post Content-->
-  <article class="mb-4">
-    <div class="container px-4 px-lg-5">
-      <div class="row gx-4 gx-lg-5 justify-content-center">
-        <div class="col-md-10 col-lg-8 col-xl-7">
-          <!--TODO do something with safety-->
-          {{ blog.content.html|safe }}
+    <article class="mb-4">
+      <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+          <div class="col-md-10 col-lg-8 col-xl-7">
+            <!--TODO do something with safety-->
+            {{ blog.content.html|safe }}
+            <!-- comment section -->
+            <div>
+              <div class="form-floating">
+                <input class="form-control" id="comment" name="comment" type="text" placeholder=""/>
+                <label for="comment">Make a comment</label>
+              </div>
+              <!-- TODO make a submit button POST func., other comment section, sorting comments -->
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </article>
+    </article>
 {% endblock %}
