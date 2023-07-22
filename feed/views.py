@@ -1,14 +1,14 @@
+from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.template.defaulttags import url
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
 from miniblog.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactRequestForm
-from .models import Blog
+from .models import Blog, Comment
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
 
@@ -154,3 +154,19 @@ class BlogDeleteView(DeleteView):
     model = Blog
     # TODO kwargs={pk: user.pk}
     success_url = reverse_lazy('profile')
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    fields = ['text']
+    template_name = 'feed/blog.html'
+
+    def get_success_url(self):
+        return reverse_lazy('blog', kwargs={'pk': self.kwargs['pk']})
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.user = self.request.user
+        comment.post_date = datetime.now
+        comment.blog = self.kwargs['blog_pk']
+        return HttpResponseRedirect(self.get_success_url())

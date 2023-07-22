@@ -54,11 +54,15 @@
             {{ blog.content.html|safe }}
             <!-- comment section -->
             <div>
-              <div class="form-floating">
-                <input class="form-control" id="comment" name="comment" type="text" placeholder=""/>
-                <label for="comment">Make a comment</label>
-              </div>
-              <!-- TODO make a submit button POST func., other comment section, sorting comments -->
+              <form action="{% url 'comment-add' blog.pk %}" method="POST">
+                {% csrf_token %}
+                <div class="form-floating" style="padding-bottom: 10px;">
+                  <input class="form-control" id="comment" name="comment" type="text" placeholder=""/>
+                  <label for="comment">Make a comment...</label>
+                </div>
+                <button class="btn btn-primary text-uppercase" type="submit">Post</button>
+              </form>
+              <!-- TODO other comment section, sorting comments -->
             </div>
           </div>
         </div>
