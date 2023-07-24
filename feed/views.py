@@ -162,11 +162,15 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'feed/blog.html'
 
     def get_success_url(self):
-        return reverse_lazy('blog', kwargs={'pk': self.kwargs['pk']})
+        return reverse_lazy('blog', kwargs={'pk': self.kwargs['blog_pk']})
+
+    def form_invalid(self, form):
+        print(form.errors)
+        return HttpResponseRedirect(self.get_success_url())
 
     def form_valid(self, form):
         comment = form.save(commit=False)
         comment.user = self.request.user
-        comment.post_date = datetime.now
-        comment.blog = self.kwargs['blog_pk']
-        return HttpResponseRedirect(self.get_success_url())
+        comment.post_date = datetime.now()
+        comment.blog = Blog.objects.get(pk=self.kwargs['blog_pk'])
+        return super().form_valid(form)
