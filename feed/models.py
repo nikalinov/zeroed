@@ -19,6 +19,8 @@ class UserProfile(models.Model):
     location = models.CharField(max_length=100, choices=COUNTRIES, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     followers = models.ManyToManyField(User, related_name='followers')
+    image = models.ImageField(width_field=150, upload_to='assets/img/',
+                              default='assets/img/user-default.svg')
 
     website = models.CharField(max_length=100, blank=True)
     github = models.CharField(max_length=100, blank=True)
