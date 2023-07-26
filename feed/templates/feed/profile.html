@@ -6,7 +6,6 @@
   {% load feed_extras %}
   {% load static %}
   <link href="{% static 'feed/css/profile_style.css' %}" rel="stylesheet"/>
-  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.css'>
 {% endblock %}
 
 {% block navbar-extra-classes %}<!--TODO-->{% endblock %}
@@ -100,7 +99,7 @@
                     </div>
                     <div class="col-sm-9 text-secondary">
                       {% for type, number in passed_user|get_blog_types %}
-                        <span class="tag is-{{ type.color }}">{{ type }}</span>x{{ number }}
+                        <span class="badge bg-{{ type.color }}">{{ type }}</span>x{{ number }}
                       {% endfor %}
                     </div>
                   </div>
@@ -141,11 +140,11 @@
                         <div class="col">
                           <h6 class="mb-0">{{ forloop.counter }}.
                             <a href="{% url 'blog' blog.pk %}">{{ blog }}</a>
-                            <span class="tag is-light">{{ blog.post_date }}</span>
-                            <span class="tag is-light">{{ blog.views }} views</span>
-                            <span class="tag is-light">{{ blog.get_rating }} rating</span>
+                            <span class="badge bg-light">{{ blog.post_date }}</span>
+                            <span class="badge bg-light">{{ blog.views }} views</span>
+                            <span class="badge bg-light">{{ blog.get_rating }} rating</span>
                           {% for type in blog.content_type.all %}
-                            <span class="tag is-{{ type.color }}">{{ type }}</span>
+                            <span class="badge bg-{{ type.color }}">{{ type }}</span>
                           {% endfor %}
                           </h6>
                         </div>

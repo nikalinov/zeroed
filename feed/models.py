@@ -33,7 +33,7 @@ class UserProfile(models.Model):
         return f'{self.user.first_name} {self.user.last_name}'
 
     def get_absolute_url(self):
-        return reverse('user-detail', kwargs={'pk': self.pk})
+        return reverse('profile', kwargs={'pk': self.user.pk})
 
     @property
     def blog_types(self):
@@ -60,12 +60,8 @@ class ContentType(models.Model):
     TAG_COLORS = [
         ("primary", "primary"),
         ("info", "info"),
-        ("link", "link"),
         ("success", "success"),
-        ("black", "black"),
-        ("dark", "dark"),
         ("light", "light"),
-        ("white", "white"),
         ("warning", "warning"),
         ("danger", "danger"),
     ]
