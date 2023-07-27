@@ -2,6 +2,7 @@ from datetime import datetime
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
+from django.db.models import Count
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -56,7 +57,11 @@ def profile(request, pk, sorting='title', edit=''):
     if sorting in reverse_sorting:
         sorting = '-' + sorting
 
-    blogs_sorted = user.blog_set.order_by(sorting).all()
+    if sorting == '-rating':
+        blogs_sorted = Blog.objects.annotate(rating=Count('upvoters')).filter(author=user).order_by(sorting).all()
+    else:
+        blogs_sorted = user.blog_set.order_by(sorting).all()
+
     context = {'passed_user': user, 'blogs_sorted': blogs_sorted}
     if not edit:
         return render(request, 'feed/profile.html', context=context)

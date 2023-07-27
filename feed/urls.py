@@ -1,4 +1,6 @@
-from django.urls import path, re_path, include
+from django.conf.urls.static import static
+from django.urls import path
+from miniblog import settings
 from . import views
 
 urlpatterns = [
@@ -18,4 +20,4 @@ urlpatterns = [
     path('blog/<int:pk>/update', views.BlogUpdateView.as_view(), name='blog-update'),
     path('blog/<int:pk>/delete', views.BlogDeleteView.as_view(), name='blog-delete'),
     path('blog/<int:blog_pk>/add-comment', views.CommentCreateView.as_view(), name='comment-add'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

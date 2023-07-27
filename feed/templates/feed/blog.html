@@ -66,11 +66,11 @@
                 {% for comment in blog.comment_set.all %}
                   <div id="comment" style="padding-top: 20px; padding-bottom: 20px;">
                     <div id="author">
-                      <span class="tag is-light">{{ comment.user.userprofile.image }}</span>
-                      <span class="tag">
+                      {{ comment.user.userprofile.image }}
+                      <span class="badge bg-light">
                         <a href="{% url 'profile' comment.user.pk %}">{{ comment.user.username }}</a>
                       </span>
-                      <span class="tag">{{ comment.post_date }}</span>
+                      <span class="badge bg-light">{{ comment.post_date }}</span>
                     </div>
                     {{ comment.text }}
                   </div>
