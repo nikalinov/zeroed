@@ -61,25 +61,31 @@
               </div>
               <button class="btn btn-primary text-uppercase" type="submit">Post</button>
             </form>
-            <div>
-              {% if blog.comment_set %}
-                {% for comment in blog.comment_set.all %}
-                  <div id="comment" style="padding-top: 20px; padding-bottom: 20px;">
-                    <div class="">
-                      <a href="{% url 'profile' comment.user.pk %}">
-                        <img class="rounded-circle" src="{{ comment.user.userprofile.image.url }}"
-                          alt="profile_image" width="50" height="50">
-                        <span class="badge bg-light">{{ comment.user.username }}</span>
-                      </a>
-                      <span class="badge bg-light">{{ comment.post_date }}</span>
-                    </div>
-                    {{ comment.text }}
+            {% if blog.comment_set %}
+              {% for comment in blog.comment_set.all %}
+                <div id="comment-grid">
+                  <div id="comment-pic">
+                    <a href="{% url 'profile' comment.user.pk %}">
+                      <img class="rounded-circle" src="{{ comment.user.userprofile.image.url }}" alt="img" width="50" height="50">
+                    </a>
                   </div>
-                {% endfor %}
-              {% else %}
-                <p>There are no comments yet...</p>
-              {% endif %}
-            </div>
+                  <div id="comment-user" class="badge bg-light">
+                    <a href="{% url 'profile' comment.user.pk %}">
+                      {{ comment.user.username }}
+                    </a>
+                  </div>
+                  <div id="comment-date" class="badge bg-light">{{ comment.post_date }}</div>
+                </div>
+                <div id="comment-text">
+                  {{ comment.text }}
+                </div>
+                {% if not forloop.last %}
+                  <hr>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              <p>There are no comments yet...</p>
+            {% endif %}
           </div>
         </div>
       </div>

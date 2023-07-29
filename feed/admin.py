@@ -8,6 +8,7 @@ from django.db import models
 admin.site.register(Comment)
 admin.site.register(ContentType)
 admin.site.register(Language)
+admin.site.register(UserProfile)
 
 
 class ProfileInline(admin.StackedInline):
@@ -26,12 +27,12 @@ class BlogInline(admin.TabularInline):
 
 
 class UserAdmin(admin.ModelAdmin):
-    inlines = [ProfileInline, BlogInline]
+    inlines = [BlogInline]
 
-    def get_inline_instances(self, request, obj=None):
-        if not obj:
-            return list()
-        return super().get_inline_instances(request, obj)
+    #def get_inline_instances(self, request, obj=None):
+    #    if not obj:
+    #        return list()
+    #    return super().get_inline_instances(request, obj)
 
 
 admin.site.unregister(User)

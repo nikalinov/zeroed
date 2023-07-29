@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     followers = models.ManyToManyField(User, editable=False, related_name='followers')
     img_width = models.PositiveIntegerField(default=150)
     image = models.ImageField(width_field='img_width', upload_to='feed/profile-pics/',
-                              default='feed/profile-pics/user-default.svg')
+                              default='feed/assets/img/profile-default.jpg')
 
     website = models.CharField(max_length=100, blank=True)
     github = models.CharField(max_length=100, blank=True)
