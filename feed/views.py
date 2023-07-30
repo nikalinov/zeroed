@@ -162,6 +162,7 @@ class BlogDeleteView(DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
+    login_url = reverse_lazy('login')
     model = Comment
     fields = ['text']
     template_name = 'feed/blog.html'
@@ -170,10 +171,10 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('blog', kwargs={'pk': self.kwargs['blog_pk']})
 
     def form_invalid(self, form):
-        print(form.errors)
-        return HttpResponseRedirect(self.get_success_url())
+        return HttpResponseRedirect(reverse_lazy('index'))
 
     def form_valid(self, form):
+        print("FFFFFFFFF")
         comment = form.save(commit=False)
         comment.user = self.request.user
         comment.post_date = datetime.now()

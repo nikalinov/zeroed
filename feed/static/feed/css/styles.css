@@ -10836,12 +10836,13 @@ div.transbox {
 
 #comment-grid {
   display: grid;
+  align-items: center;
   grid-template-columns: 50px 150px;
   grid-gap: 10px;
   grid-template-areas:
     "p u"
     "p d";
-  padding-top: 20px;
+  padding-top: 40px;
   padding-bottom: 20px;
 }
 
