@@ -15,7 +15,8 @@ from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormVi
 
 def index(request):
     """View function for home page of site."""
-    return render(request, 'feed/index.html')
+    context = {'all_blogs': Blog.objects.all()}
+    return render(request, 'feed/index.html', context=context)
 
 
 def about(request):
@@ -162,7 +163,6 @@ class BlogDeleteView(DeleteView):
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
-    login_url = reverse_lazy('login')
     model = Comment
     fields = ['text']
     template_name = 'feed/blog.html'
@@ -174,7 +174,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(reverse_lazy('index'))
 
     def form_valid(self, form):
-        print("FFFFFFFFF")
+        print("FFFFFFff")
         comment = form.save(commit=False)
         comment.user = self.request.user
         comment.post_date = datetime.now()
