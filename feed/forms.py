@@ -17,6 +17,17 @@ class ProfileEditForm(forms.Form):
     instagram = forms.CharField(max_length=100, required=False)
     facebook = forms.CharField(max_length=100, required=False)
 
+    def resources(self):
+        return [self.website, self.github, self.twitter, self.instagram, self.facebook]
+
+    def first_fields(self):
+        # TODO
+        return [self.fields['first_name'],
+                self.fields['last_name'],
+                self.fields['bio'],
+                self.fields['email'],
+                self.fields['location']]
+
 
 class BlogForm(forms.ModelForm):
     class Meta:

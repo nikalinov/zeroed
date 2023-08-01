@@ -102,52 +102,20 @@
               <div class="card mb-3">
                 <div class="card-body">
                   {% if edit %}
-                    <!--TODO loop it -->
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label class="mb-0" for="{{ form.first_name.id_for_label }}">First name</label>
+                    <!--TODO-->
+                    {% for field in form.first_fields %}
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <label class="mb-0" for="{{ field.id_for_label }}">{{ field }}</label>
+                        </div>
+                        <div class="col-sm-9 text-secondary">
+                          {{ field }}
+                        </div>
                       </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ form.first_name }}
-                      </div>
-                      <div class="col-sm-3">
-                        <label class="mb-0" for="{{ form.last_name.id_for_label }}">Last name</label>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ form.last_name }}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label class="mb-0" for="{{ form.email.id_for_label }}">Email</label>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ form.email }}
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label class="mb-0" for="{{ form.location.id_for_label }}">Location</label>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ form.location }}
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <label class="mb-0" for="{{ form.bio.id_for_label }}">Bio</label>
-                      </div>
-                      <div class="col-sm-9 text-secondary">
-                        {{ form.bio }}
-                      </div>
-                    </div>
-                    <hr>
-                    <div class="row">
-                      <div class="col-sm-12">
-                        <button class="btn btn-info" type="submit">Submit</button>
-                      </div>
-                    </div>
+                      {% if not forloop.last %}
+                        <hr>
+                      {% endif %}
+                    {% endfor %}
                   {% else %}
                     <div class="row">
                       <div class="col-sm-3">

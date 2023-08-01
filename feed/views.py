@@ -94,6 +94,8 @@ def profile(request, pk, sorting='title', edit=''):
                 'first_name': user_profile.user.first_name,
                 'last_name': user_profile.user.last_name,
                 'email': user_profile.user.email,
+                'location': user_profile.location,
+                'bio': user_profile.bio,
                 'website': user_profile.website,
                 'github': user_profile.github,
                 'instagram': user_profile.instagram,
