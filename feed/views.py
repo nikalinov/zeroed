@@ -9,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
 from miniblog.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactRequestForm
-from .models import Blog, Comment
+from .models import Blog, Comment, UserProfile
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
 
@@ -63,7 +63,7 @@ def profile(request, pk, sorting='title', edit=''):
     else:
         blogs_sorted = user.blog_set.order_by(sorting).all()
 
-    context = {'passed_user': user, 'blogs_sorted': blogs_sorted}
+    context = {'passed_user': user, 'blogs_sorted': blogs_sorted, 'edit': False}
     if not edit:
         return render(request, 'feed/profile.html', context=context)
 
@@ -75,6 +75,7 @@ def profile(request, pk, sorting='title', edit=''):
             user_profile.user.last_name = form.cleaned_data['last_name']
             user_profile.bio = form.cleaned_data['bio']
             user_profile.user.email = form.cleaned_data['email']
+            user_profile.location = form.cleaned_data['location']
 
             user_profile.website = form.cleaned_data['website']
             user_profile.github = form.cleaned_data['github']
@@ -85,7 +86,7 @@ def profile(request, pk, sorting='title', edit=''):
             user_profile.save()
 
             # redirect to a new URL:
-            return HttpResponseRedirect(reverse('profile'))
+            return HttpResponseRedirect(reverse('profile', kwargs={'pk': pk}))
 
     else:
         form = ProfileEditForm(
@@ -93,6 +94,8 @@ def profile(request, pk, sorting='title', edit=''):
                 'first_name': user_profile.user.first_name,
                 'last_name': user_profile.user.last_name,
                 'email': user_profile.user.email,
+                'location': user_profile.location,
+                'bio': user_profile.bio,
                 'website': user_profile.website,
                 'github': user_profile.github,
                 'instagram': user_profile.instagram,
@@ -102,7 +105,8 @@ def profile(request, pk, sorting='title', edit=''):
         )
 
     context['form'] = form
-    return render(request, 'feed/profile_edit.html', context=context)
+    context['edit'] = True
+    return render(request, 'feed/profile.html', context=context)
 
 
 class BlogListView(ListView):
@@ -174,7 +178,6 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return HttpResponseRedirect(reverse_lazy('index'))
 
     def form_valid(self, form):
-        print("FFFFFFff")
         comment = form.save(commit=False)
         comment.user = self.request.user
         comment.post_date = datetime.now()
