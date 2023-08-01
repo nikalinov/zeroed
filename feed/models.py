@@ -9,14 +9,12 @@ from feed.countries import COUNTRIES
 from django.urls import reverse
 from django_quill.fields import QuillField
 
-from miniblog.settings import env
-
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
+    location = models.CharField(max_length=100, choices=COUNTRIES, blank=True)
     reputation = models.IntegerField(default=0, editable=False)
-    location = models.CharField(max_length=100, choices=COUNTRIES, blank=True, null=True)
     birth_date = models.DateField(blank=True, null=True)
     followers = models.ManyToManyField(User, editable=False, related_name='followers')
     img_width = models.PositiveIntegerField(default=150)
