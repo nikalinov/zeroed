@@ -13,9 +13,22 @@ from .models import Blog, Comment, UserProfile
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
 
-def index(request):
+def blogs_sorted(sorting):
+    reverse_sorting = {'rating', 'views', 'post_date'}
+
+    if sorting in reverse_sorting:
+        sorting = '-' + sorting
+
+    if sorting == '-rating':
+        blogs = Blog.objects.annotate(rating=Count('upvoters')).order_by(sorting).all()
+    else:
+        blogs = Blog.objects.order_by(sorting).all()
+    return blogs
+
+
+def index(request, sorting='title'):
     """View function for home page of site."""
-    context = {'all_blogs': Blog.objects.all()}
+    context = {'blogs': blogs_sorted(sorting)}
     return render(request, 'feed/index.html', context=context)
 
 
@@ -53,17 +66,12 @@ def contact_success(request):
 def profile(request, pk, sorting='title', edit=''):
     user = get_object_or_404(User, pk=pk)
     user_profile = user.userprofile
-    reverse_sorting = {'rating', 'views', 'post_date'}
 
-    if sorting in reverse_sorting:
-        sorting = '-' + sorting
-
-    if sorting == '-rating':
-        blogs_sorted = Blog.objects.annotate(rating=Count('upvoters')).filter(author=user).order_by(sorting).all()
-    else:
-        blogs_sorted = user.blog_set.order_by(sorting).all()
-
-    context = {'passed_user': user, 'blogs_sorted': blogs_sorted, 'edit': False}
+    context = {
+        'passed_user': user,
+        'blogs': blogs_sorted(sorting),
+        'edit': False
+    }
     if not edit:
         return render(request, 'feed/profile.html', context=context)
 
