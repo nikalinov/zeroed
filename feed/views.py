@@ -26,10 +26,23 @@ def blogs_sorted(sorting):
     return blogs
 
 
-def index(request, sorting='title'):
-    """View function for home page of site."""
-    context = {'blogs': blogs_sorted(sorting)}
-    return render(request, 'feed/index.html', context=context)
+class BlogListView(ListView):
+    model = Blog
+    paginate_by = 5
+    template_name = 'feed/index.html'
+
+    def get_queryset(self):
+        # TODO fix upvotes, rating, post_date
+        if 'sorting' in self.kwargs:
+            return Blog.objects.order_by(self.kwargs['sorting'])
+        else:
+            return Blog.objects.order_by('title')
+
+
+#def index(request, sorting='title'):
+ #   """View function for home page of site."""
+  #  context = {'blogs': blogs_sorted(sorting)}
+   # return render(request, 'feed/index.html', context=context)
 
 
 def about(request):
@@ -115,11 +128,6 @@ def profile(request, pk, sorting='title', edit=''):
     context['form'] = form
     context['edit'] = True
     return render(request, 'feed/profile.html', context=context)
-
-
-class BlogListView(ListView):
-    model = Blog
-    paginate_by = 5
 
 
 def follow(request, pk):

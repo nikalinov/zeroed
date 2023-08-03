@@ -4,8 +4,8 @@ from miniblog import settings
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('sorted/<str:sorting>', views.index, name='index-sorted'),
+    path('', views.BlogListView.as_view(), name='index'),
+    path('sorted/<str:sorting>', views.BlogListView.as_view(), name='index-sorted'),
     path('about/', views.about, name='about'),
     path('contact/', views.ContactFormView.as_view(), name='contact'),
     path('contact/success', views.contact_success, name='contact-success'),

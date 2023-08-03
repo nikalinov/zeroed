@@ -33,7 +33,7 @@
             <a class="dropdown-item" href="{% url 'index-sorted' 'post_date' %}">post date</a>
           </div>
         </div>
-        {% for blog in blogs %}
+        {% for blog in blog_list %}
           <div class="post-preview">
             <a href="{% url 'blog' blog.pk %}">
               <h2 class="post-title">{{ blog.title }}</h2>
@@ -45,8 +45,22 @@
             </p>
           </div>
         {% endfor %}
-        <!-- Pager-->
-        <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+
+        <div class="pagination justify-content-center">
+          <span class="step-links">
+            {% if page_obj.has_previous %}
+              <a class="btn btn-primary text-uppercase" href="?page={{ page_obj.previous_page_number }}">← Previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+              <a class="btn btn-primary text-uppercase" href="?page={{ page_obj.next_page_number }}">Other Posts →</a>
+            {% endif %}
+          </span>
+        </div>
       </div>
     </div>
   </div>
