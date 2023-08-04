@@ -1,6 +1,7 @@
 {% extends 'base_generic.html' %}
 {% load static %}
-{% load feed_extras %}
+<!-- load feed_extras -->
+{% load bleach_tags %}
 
 {% block title %} {{ blog.title }} {% endblock %}
 
@@ -50,8 +51,7 @@
       <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
-            <!--TODO do something with safety-->
-            {{ blog.content.html|safe }}
+            {{ blog.content.html|bleach }}
             <!-- comment section -->
             <form action="{% url 'comment-add' blog.pk %}" method="POST">
               {% csrf_token %}

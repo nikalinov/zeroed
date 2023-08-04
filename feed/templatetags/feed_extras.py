@@ -17,6 +17,6 @@ def get_blog_types(user: User) -> list[tuple]:
 
 
 @register.filter
-def bleach(html_content):
+def ff(html_content):
     return clean(html_content)
 

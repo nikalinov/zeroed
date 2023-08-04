@@ -40,8 +40,11 @@
             </a>
             <p class="post-meta">
               Posted by
-              <a href="{% url 'profile' blog.author.pk %}">{{ blog.author.username }}</a>
-              on {{ blog.post_date }}
+              <a href="{% url 'profile' blog.author.pk %}">
+                <img class="rounded-circle" src="{{ blog.author.userprofile.image.url }}" alt="img" width="25" height="25">
+              </a>
+              <a class="badge bg-light" href="{% url 'profile' blog.author.pk %}">{{ blog.author.username }}</a>
+              on <span class="badge bg-light">{{ blog.post_date }}</span>
             </p>
           </div>
         {% endfor %}

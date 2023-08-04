@@ -11,9 +11,10 @@ from miniblog.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactRequestForm
 from .models import Blog, Comment, UserProfile
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
+import bleach
 
 
-def blogs_sorted(sorting):
+def blogs_sorted(sorting, author=None):
     reverse_sorting = {'rating', 'views', 'post_date'}
 
     if sorting in reverse_sorting:
@@ -23,7 +24,8 @@ def blogs_sorted(sorting):
         blogs = Blog.objects.annotate(rating=Count('upvoters')).order_by(sorting).all()
     else:
         blogs = Blog.objects.order_by(sorting).all()
-    return blogs
+
+    return blogs.filter(author=author) if author else blogs
 
 
 class BlogListView(ListView):
@@ -37,12 +39,6 @@ class BlogListView(ListView):
             return Blog.objects.order_by(self.kwargs['sorting'])
         else:
             return Blog.objects.order_by('title')
-
-
-#def index(request, sorting='title'):
- #   """View function for home page of site."""
-  #  context = {'blogs': blogs_sorted(sorting)}
-   # return render(request, 'feed/index.html', context=context)
 
 
 def about(request):
@@ -82,7 +78,7 @@ def profile(request, pk, sorting='title', edit=''):
 
     context = {
         'passed_user': user,
-        'blogs': blogs_sorted(sorting),
+        'blogs': blogs_sorted(sorting, user),
         'edit': False
     }
     if not edit:

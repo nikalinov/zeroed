@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'password_reset',
     'django_quill',
+    'django_bleach',
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,51 @@ EMAIL_HOST_USER = env('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')
 RECIPIENT_ADDRESS = env('RECIPIENT_ADDRESS')
+
+# settings for bleach
+# Which HTML tags are allowed
+BLEACH_ALLOWED_TAGS = [
+    "address", "article", "aside", "footer", "header", "h1", "h2", "h3", "h4",
+    "h5", "h6", "hgroup", "main", "nav", "section", "blockquote", "dd", "div",
+    "dl", "dt", "figcaption", "figure", "hr", "li", "main", "ol", "p", "pre",
+    "ul", "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn",
+    "em", "i", "kbd", "mark", "q", "rb", "rp", "rt", "rtc", "ruby", "s", "samp",
+    "small", "span", "strong", "sub", "sup", "time", "u", "var", "wbr", "caption",
+    "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr",
+]
+# Which HTML attributes are allowed
+BLEACH_ALLOWED_ATTRIBUTES = [
+    'abbr', 'accept', 'accept-charset', 'accesskey', 'action',
+    'allow', 'alt', 'as', 'autocapitalize', 'autocomplete',
+    'blocking', 'charset', 'cite', 'class', 'color', 'cols',
+    'colspan', 'content', 'contenteditable', 'coords', 'crossorigin',
+    'data', 'datetime', 'decoding', 'dir', 'dirname', 'download',
+    'draggable', 'enctype', 'enterkeyhint', 'fetchpriority', 'for',
+    'form', 'formaction', 'formenctype', 'formmethod', 'formtarget',
+    'headers', 'height', 'hidden', 'high', 'href', 'hreflang',
+    'http-equiv', 'id', 'imagesizes', 'imagesrcset', 'inputmode',
+    'integrity', 'is', 'itemid', 'itemprop', 'itemref', 'itemtype',
+    'kind', 'label', 'lang', 'list', 'loading', 'low', 'max',
+    'maxlength', 'media', 'method', 'min', 'minlength', 'name',
+    'nonce', 'optimum', 'pattern', 'ping', 'placeholder', 'popover',
+    'popovertarget', 'popovertargetaction', 'poster', 'preload',
+    'referrerpolicy', 'rel', 'rows', 'rowspan', 'sandbox', 'scope',
+    'shape', 'size', 'sizes', 'slot', 'span', 'spellcheck', 'src',
+    'srcdoc', 'srclang', 'srcset', 'start', 'step', 'style',
+    'tabindex', 'target', 'title', 'translate', 'type', 'usemap',
+    'value', 'width', 'wrap',
+]
+# Which CSS properties are allowed in 'style' attributes
+BLEACH_ALLOWED_STYLES = [
+    'font-family', 'font-weight', 'text-decoration', 'font-variant', 'color'
+]
+# Which protocols (and pseudo-protocols) are allowed in 'src' attributes
+# (assuming src is an allowed attribute)
+BLEACH_ALLOWED_PROTOCOLS = [
+    'http', 'https',
+]
+# Strip unknown tags if True, replace with HTML escaped characters if False
+BLEACH_STRIP_TAGS = False
+
+# Strip HTML comments, or leave them in.
+BLEACH_STRIP_COMMENTS = True
