@@ -184,7 +184,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     template_name = 'feed/blog.html'
 
     def get_success_url(self):
-        return reverse_lazy('blog', kwargs={'pk': self.kwargs['blog_pk']})
+        return f"{reverse_lazy('blog', args=[self.kwargs['blog_pk']])}#comment-section"
 
     def form_invalid(self, form):
         return HttpResponseRedirect(reverse_lazy('index'))
