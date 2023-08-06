@@ -55,7 +55,7 @@
             <!-- comment section -->
             <form action="{% url 'comment-add' blog.pk %}" method="POST">
               {% csrf_token %}
-              <div class="form-floating" style="padding-bottom: 10px;">
+              <div class="form-floating" id="comment-section" style="padding-bottom: 10px;">
                 <input class="form-control" id="comment-write" name="text" type="text" placeholder="" value=""/>
                 <label for="comment-write">Make a comment...</label>
               </div>
@@ -63,19 +63,25 @@
             </form>
             {% if blog.comment_set %}
               {% for comment in blog.comment_set.all %}
-                <div id="comment-grid">
-                  <div id="comment-pic">
-                    <a href="{% url 'profile' comment.user.pk %}">
-                      <img class="rounded-circle" src="{{ comment.user.userprofile.image.url }}" alt="img" width="55" height="55">
-                    </a>
+                <div class="d-flex justify-content-between">
+                  <div class="p-2" id="comment-grid">
+                    <div id="comment-pic">
+                      <a href="{% url 'profile' comment.user.pk %}">
+                        <img class="rounded-circle" src="{{ comment.user.userprofile.image.url }}" alt="img" width="55" height="55">
+                      </a>
+                    </div>
+                    <div id="comment-user" class="badge bg-light">
+                      <a href="{% url 'profile' comment.user.pk %}">
+                        {{ comment.user.username }}
+                      </a>
+                    </div>
+                    <div id="comment-date" class="badge bg-light">{{ comment.post_date }}</div>
                   </div>
-                  <div id="comment-user" class="badge bg-light">
-                    <a href="{% url 'profile' comment.user.pk %}">
-                      {{ comment.user.username }}
-                    </a>
-                  </div>
-                  <div id="comment-date" class="badge bg-light">{{ comment.post_date }}</div>
+                  <!-- form to allow comment deletion without confirmation -->
+                  <form id="comment_form" method="post" action="{% url 'comment-delete' blog.pk comment.pk %}">{% csrf_token %}</form>
+                  <a class="p-2" onclick="document.getElementById('comment_form').submit();"><i class="fa-solid fa-trash-can"></i></a>
                 </div>
+
                 <div id="comment-text">
                   {{ comment.text }}
                 </div>

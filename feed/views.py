@@ -195,3 +195,10 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         comment.post_date = datetime.now()
         comment.blog = Blog.objects.get(pk=self.kwargs['blog_pk'])
         return super().form_valid(form)
+
+
+class CommentDeleteView(LoginRequiredMixin, DeleteView):
+    model = Comment
+
+    def get_success_url(self):
+        return f"{reverse_lazy('blog', args=[self.kwargs['blog_pk']])}#comment-section"

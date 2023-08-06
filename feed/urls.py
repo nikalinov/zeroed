@@ -21,4 +21,5 @@ urlpatterns = [
     path('blog/<int:pk>/update', views.BlogUpdateView.as_view(), name='blog-update'),
     path('blog/<int:pk>/delete', views.BlogDeleteView.as_view(), name='blog-delete'),
     path('blog/<int:blog_pk>/add-comment', views.CommentCreateView.as_view(), name='comment-add'),
+    path('blog/<int:blog_pk>/delete-comment/<int:pk>', views.CommentDeleteView.as_view(), name='comment-delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
