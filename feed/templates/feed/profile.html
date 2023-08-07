@@ -8,24 +8,16 @@
   <link href="{% static 'feed/css/profile_style.css' %}" rel="stylesheet"/>
 {% endblock %}
 
-{% block navbar-extra-classes %}<!--TODO-->{% endblock %}
+{% block navbar-extra-classes %} bg-dark {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="main-body">
-          <!-- Breadcrumb -->
-          <nav aria-label="breadcrumb" class="main-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-            </ol>
-          </nav>
-          <!-- /Breadcrumb -->
           {% if edit %}
             <form action="" method="POST">
             {% csrf_token %}
           {% endif %}
-          <div class="row gutters-sm">
+          <div id="profile-body" class="row gutters-sm">
             <div class="col-md-4 mb-3">
               <div class="card">
                 <div class="card-body">

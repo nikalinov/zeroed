@@ -183,6 +183,11 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
     fields = ['text']
     template_name = 'feed/blog.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['blog'] = Blog.objects.get(pk=self.kwargs['blog_pk'])
+        return context
+
     def get_success_url(self):
         return f"{reverse_lazy('blog', args=[self.kwargs['blog_pk']])}#comment-section"
 

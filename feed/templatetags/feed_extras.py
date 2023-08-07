@@ -15,8 +15,3 @@ def get_blog_types(user: User) -> list[tuple]:
             types[content_type] += 1
     return list(types.items())
 
-
-@register.filter
-def ff(html_content):
-    return clean(html_content)
-
