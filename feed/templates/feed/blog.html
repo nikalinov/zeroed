@@ -58,7 +58,9 @@
                 <input class="form-control" id="comment-write" name="text" type="text" placeholder="" value=""/>
                 <label for="comment-write">Make a comment...</label>
               </div>
-              <button class="btn btn-primary text-uppercase" type="submit">Post</button>
+              <button class="btn btn-primary text-uppercase"
+                      {% if not perms.feed.add_comment %} disabled {% endif %}
+                      type="submit">Post</button>
             </form>
             {% if blog.comment_set.count %}
               {% for comment in blog.comment_set.all %}

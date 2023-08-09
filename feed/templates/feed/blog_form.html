@@ -20,7 +20,9 @@
         Language: {{ form.language }}
         {{ form.content }}
         <div>Content type(s):</div>{{ form.content_type }}
-        <div><button class="btn btn-dark" type="submit">Post</button></div>
+        <div><button class="btn btn-dark"
+            {% if not perms.feed.add_blog %} disabled {% endif %}
+            type="submit">Post</button></div>
       </form>
     </div>
   </div>
