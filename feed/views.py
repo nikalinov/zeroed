@@ -1,9 +1,9 @@
 from datetime import datetime
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.db.models import Count
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
@@ -178,7 +178,9 @@ class BlogDeleteView(DeleteView):
     success_url = reverse_lazy('profile')
 
 
-class CommentCreateView(LoginRequiredMixin, CreateView):
+class CommentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
+    # TODO
+    permission_required = 'catalog.can_create_comment'
     model = Comment
     fields = ['text']
     template_name = 'feed/blog.html'
@@ -189,10 +191,12 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return f"{reverse_lazy('blog', args=[self.kwargs['blog_pk']])}#comment-section"
+        return f"{reverse_lazy('blog', kwargs=self.get_context_data())}#comment-section"
 
-    def form_invalid(self, form):
-        return HttpResponseRedirect(reverse_lazy('index'))
+    def get(self, request, *args, **kwargs):
+        # TODO post comment written before
+        self.post(request, *args, **kwargs)
+        return render(request, self.template_name, self.get_context_data())
 
     def form_valid(self, form):
         comment = form.save(commit=False)

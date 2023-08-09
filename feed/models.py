@@ -13,7 +13,7 @@ from django_quill.fields import QuillField
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     bio = models.TextField(max_length=500, blank=True)
-    location = models.CharField(max_length=100, choices=COUNTRIES, blank=True)
+    location = models.CharField(max_length=100, choices=COUNTRIES, null=True, blank=True)
     reputation = models.IntegerField(default=0, editable=False)
     birth_date = models.DateField(blank=True, null=True)
     followers = models.ManyToManyField(User, editable=False, related_name='followers')
