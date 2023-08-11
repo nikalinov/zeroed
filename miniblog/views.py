@@ -32,9 +32,10 @@ def register(request):
             )
             send_mail(
                 'Account activation',
-                from_email=env('EMAIL_HOST_USER'),
+                from_email=env('EMAIL_HOST'),
                 recipient_list=[form.cleaned_data['email']],
                 message=message,
+                fail_silently=False,
             )
             return HttpResponseRedirect(
                 reverse('register-success', kwargs={'pk': new_user.pk})
