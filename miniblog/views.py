@@ -6,6 +6,11 @@ from django.template.loader import render_to_string
 from django.urls import reverse
 from miniblog.forms import RegisterForm
 from miniblog.settings import env
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from settings import EMAIL_PORT, EMAIL_HOST
+import mailtrap as mt
+import smtplib
 
 
 def register(request):
@@ -21,7 +26,10 @@ def register(request):
                 last_name=form.cleaned_data['last_name'],
                 is_active=False,
             )
-            message = render_to_string(
+            """
+            # email testing
+            # html form of message
+            html = render_to_string(
                 'registration/register_confirm_email.html',
                 context={
                     'pk': new_user.pk,
@@ -30,9 +38,45 @@ def register(request):
                     'domain': request.get_host(),
                 }
             )
+            # create mail object
+            mail = mt.Mail(
+                sender=mt.Address(email=env('EMAIL_HOST')),
+                to=[mt.Address(email=form.cleaned_data['email'])],
+                subject='Account activation',
+                text=html,
+            )
+            # create client and send
+            client = mt.MailtrapClient(token=env('API_TOKEN'))
+            client.send(mail)
+            # email sending
+            message = MIMEMultipart("alternative")
+            message["Subject"] = 'Account activation'
+            message["From"] = env('EMAIL_HOST')
+            message["To"] = form.cleaned_data['email'])
+            # text alternative for email
+            text = render_to_string(
+                'registration/register_confirm_email_alt.html',
+                context={
+                    'pk': new_user.pk,
+                    'username': User.objects.get(pk=new_user.pk).username,
+                    'protocol': 'http',
+                    'domain': request.get_host(),
+                }
+            part1 = MIMEText(text, "plain")
+            part2 = MIMEText(html, "html")
+            message.attach(part1)
+            message.attach(part2)
+            with smtplib.SMTP('smtp.mailtrap.io', EMAIL_PORT) as server:
+                server.login(login, password)
+                server.sendmail(
+                    sender_email, receiver_email, message.as_string()
+                )
+            """
+
             send_mail(
                 'Account activation',
                 from_email=env('EMAIL_HOST'),
+                # use Mailtrap for password reset
                 recipient_list=[form.cleaned_data['email']],
                 message=message,
                 fail_silently=False,
