@@ -8,7 +8,6 @@ from miniblog.forms import RegisterForm
 from miniblog.settings import env
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-from settings import EMAIL_PORT, EMAIL_HOST
 import mailtrap as mt
 import smtplib
 
@@ -26,6 +25,7 @@ def register(request):
                 last_name=form.cleaned_data['last_name'],
                 is_active=False,
             )
+            # TODO
             """
             # email testing
             # html form of message

@@ -178,9 +178,7 @@ class BlogDeleteView(DeleteView):
     success_url = reverse_lazy('profile')
 
 
-class CommentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView):
-    # TODO
-    permission_required = 'catalog.can_create_comment'
+class CommentCreateView(LoginRequiredMixin, CreateView):
     model = Comment
     fields = ['text']
     template_name = 'feed/blog.html'
@@ -192,11 +190,6 @@ class CommentCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView)
 
     def get_success_url(self):
         return f"{reverse_lazy('blog', kwargs=self.get_context_data())}#comment-section"
-
-    def get(self, request, *args, **kwargs):
-        # TODO post comment written before
-        self.post(request, *args, **kwargs)
-        return render(request, self.template_name, self.get_context_data())
 
     def form_valid(self, form):
         comment = form.save(commit=False)

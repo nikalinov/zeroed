@@ -61,7 +61,7 @@
               <div {% if not perms.feed.add_comment %}
                 title="You cannot comment with less than 5 reputation!"{% endif %}>
                 <button class="btn btn-primary text-uppercase"
-                    {% if not perms.feed.add_comment %} disabled title="You cannot comment with less than 5 reputation!"{% endif %}
+                    {% if user.is_authorized and not perms.feed.add_comment %} disabled title="You cannot comment with less than 5 reputation!"{% endif %}
                     type="submit">Post</button></div>
             </form>
             {% if blog.comment_set.count %}
