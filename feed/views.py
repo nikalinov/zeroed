@@ -34,9 +34,8 @@ class BlogListView(ListView):
     template_name = 'feed/index.html'
 
     def get_queryset(self):
-        # TODO fix upvotes, rating, post_date
         if 'sorting' in self.kwargs:
-            return Blog.objects.order_by(self.kwargs['sorting'])
+            return blogs_sorted(self.kwargs['sorting'])
         else:
             return Blog.objects.order_by('title')
 
