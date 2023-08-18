@@ -25,10 +25,7 @@ def register(request):
                 last_name=form.cleaned_data['last_name'],
                 is_active=False,
             )
-            # TODO
-            """
-            # email testing
-            # html form of message
+
             html = render_to_string(
                 'registration/register_confirm_email.html',
                 context={
@@ -38,21 +35,6 @@ def register(request):
                     'domain': request.get_host(),
                 }
             )
-            # create mail object
-            mail = mt.Mail(
-                sender=mt.Address(email=env('EMAIL_HOST')),
-                to=[mt.Address(email=form.cleaned_data['email'])],
-                subject='Account activation',
-                text=html,
-            )
-            # create client and send
-            client = mt.MailtrapClient(token=env('API_TOKEN'))
-            client.send(mail)
-            # email sending
-            message = MIMEMultipart("alternative")
-            message["Subject"] = 'Account activation'
-            message["From"] = env('EMAIL_HOST')
-            message["To"] = form.cleaned_data['email'])
             # text alternative for email
             text = render_to_string(
                 'registration/register_confirm_email_alt.html',
@@ -62,23 +44,14 @@ def register(request):
                     'protocol': 'http',
                     'domain': request.get_host(),
                 }
-            part1 = MIMEText(text, "plain")
-            part2 = MIMEText(html, "html")
-            message.attach(part1)
-            message.attach(part2)
-            with smtplib.SMTP('smtp.mailtrap.io', EMAIL_PORT) as server:
-                server.login(login, password)
-                server.sendmail(
-                    sender_email, receiver_email, message.as_string()
-                )
-            """
+            )
 
             send_mail(
                 'Account activation',
                 from_email=env('EMAIL_HOST'),
                 # use Mailtrap for password reset
                 recipient_list=[form.cleaned_data['email']],
-                message=message,
+                message=text,
                 fail_silently=False,
             )
             return HttpResponseRedirect(
