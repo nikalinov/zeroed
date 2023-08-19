@@ -1,7 +1,7 @@
 from collections import defaultdict
+from datetime import datetime
 from django import template
 from django.contrib.auth.models import User
-from bleach import clean
 
 
 register = template.Library()
@@ -14,4 +14,9 @@ def get_blog_types(user: User) -> list[tuple]:
         for content_type in blog.content_type.all():
             types[content_type] += 1
     return list(types.items())
+
+
+@register.simple_tag
+def randomness():
+    return datetime.now()
 

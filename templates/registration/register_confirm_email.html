@@ -1,3 +1,5 @@
+{% load feed_extras %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,8 +7,10 @@
     <title></title>
   </head>
   <body>
-    <p>Thank you for registering, {{ username }}!</p>
-    <!--{{ protocol }}://{{ domain }}-->
-    <p>To activate your account, <a href="{% url 'register-confirm' pk %}">click here</a></p>
+    <p style="font-size: 18px;">Thank you for registering on Zeroed, <b>{{ username }}</b>!</p>
+    <p style="font-size: 18px;">To activate your account,
+      <a href="{{ protocol }}://{{ domain }}{% url 'register-confirm' pk %}">click here</a></p>
+    <!-- this is needed to avoid Gmail trimming -->
+    <span style="opacity: 0"> {% randomness %} </span>
   </body>
 </html>

@@ -4,12 +4,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
+from django.utils.html import strip_tags
 from miniblog.forms import RegisterForm
 from miniblog.settings import env
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
-import mailtrap as mt
-import smtplib
 
 
 def register(request):
@@ -26,7 +23,7 @@ def register(request):
                 is_active=False,
             )
 
-            html = render_to_string(
+            html_message = render_to_string(
                 'registration/register_confirm_email.html',
                 context={
                     'pk': new_user.pk,
@@ -35,24 +32,14 @@ def register(request):
                     'domain': request.get_host(),
                 }
             )
-            # text alternative for email
-            text = render_to_string(
-                'registration/register_confirm_email_alt.html',
-                context={
-                    'pk': new_user.pk,
-                    'username': User.objects.get(pk=new_user.pk).username,
-                    'protocol': 'http',
-                    'domain': request.get_host(),
-                }
-            )
+            text_message = strip_tags(html_message)
 
             send_mail(
                 'Account activation',
-                from_email=env('EMAIL_HOST'),
-                # use Mailtrap for password reset
+                from_email=env('EMAIL_HOST_USER'),
                 recipient_list=[form.cleaned_data['email']],
-                message=text,
-                fail_silently=False,
+                message=text_message,
+                html_message=html_message,
             )
             return HttpResponseRedirect(
                 reverse('register-success', kwargs={'pk': new_user.pk})

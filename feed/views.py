@@ -56,7 +56,6 @@ class ContactFormView(LoginRequiredMixin, FormView):
         contact_request.sender = self.request.user
         contact_request.save()
 
-        # TODO use SendGrid or smth for alternate from_email
         send_mail(
             subject=contact_request.subject,
             from_email=contact_request.sender.email,
