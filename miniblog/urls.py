@@ -20,11 +20,16 @@ from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
 from miniblog import views
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('feed/', include('feed.urls')),
     path('', RedirectView.as_view(url='feed/', permanent=True)),
+    path('accounts/password_reset/', auth_views.PasswordResetView.as_view(
+        html_email_template_name='registration/password_reset_email.html'
+    ), name='password_reset'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/register/', views.register, name='register'),
     path('accounts/register/success/<int:pk>', views.register_success, name='register-success'),
