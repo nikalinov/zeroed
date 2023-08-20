@@ -83,7 +83,7 @@ def profile(request, pk, sorting='title', edit=''):
         return render(request, 'feed/profile.html', context=context)
 
     if request.method == 'POST':
-        form = ProfileEditForm(request.POST)
+        form = ProfileEditForm(request.POST, request.FILES)
 
         if form.is_valid():
             user_profile.user.first_name = form.cleaned_data['first_name']
@@ -91,6 +91,7 @@ def profile(request, pk, sorting='title', edit=''):
             user_profile.bio = form.cleaned_data['bio']
             user_profile.user.email = form.cleaned_data['email']
             user_profile.location = form.cleaned_data['location']
+            user_profile.picture = form.files['picture']
 
             user_profile.website = form.cleaned_data['website']
             user_profile.github = form.cleaned_data['github']

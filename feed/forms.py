@@ -10,6 +10,7 @@ class ProfileEditForm(forms.Form):
     bio = forms.CharField(max_length=500, widget=forms.Textarea, required=False)
     email = forms.EmailField(max_length=100)
     location = forms.ChoiceField(choices=COUNTRIES, required=False)
+    picture = forms.ImageField()
 
     website = forms.CharField(max_length=100, required=False)
     github = forms.CharField(max_length=100, required=False)
