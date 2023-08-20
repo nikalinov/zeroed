@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
 from django.utils.html import strip_tags
-from miniblog.forms import RegisterForm
-from miniblog.settings import env
+from zeroed.forms import RegisterForm
+from zeroed.settings import env
 
 
 def register(request):

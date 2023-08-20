@@ -24,13 +24,14 @@ class BlogForm(forms.ModelForm):
         model = Blog
         fields = ['title', 'content', 'content_type', 'language']
 
-    def clean_content(self):
+    # TODO
+    """def clean_content(self):
         content = self.cleaned_data['content']
         content_len = 100
-        print(content.delta, type(content))
+        print(content.delta)
         if len(content.getLength()) < content_len:
             raise ValidationError(f'There should be at least {content_len} characters in the blog!')
-        return content
+        return content"""
 
 
 class ContactRequestForm(forms.ModelForm):

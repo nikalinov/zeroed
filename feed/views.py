@@ -7,7 +7,9 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
-from miniblog.settings import env
+
+import zeroed.settings
+from zeroed.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactRequestForm
 from .models import Blog, Comment, UserProfile
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
@@ -161,6 +163,7 @@ class BlogCreateView(LoginRequiredMixin, CreateView):
         return reverse_lazy('blog', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
+        print(self.request.user)
         form.instance.author = self.request.user
         return super().form_valid(form)
 
@@ -188,7 +191,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def get_success_url(self):
-        return f"{reverse_lazy('blog', kwargs=self.get_context_data())}#comment-section"
+        return f"{reverse_lazy('blog', args=[self.get_context_data()['blog'].pk])}#comment-section"
 
     def form_valid(self, form):
         comment = form.save(commit=False)

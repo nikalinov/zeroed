@@ -1,5 +1,5 @@
 """
-URL configuration for miniblog project.
+URL configuration for zeroed project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.2/topics/http/urls/
@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
-from miniblog import views
+from zeroed import views
 from django.contrib.auth import views as auth_views
 
 
