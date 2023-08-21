@@ -1,19 +1,17 @@
 from datetime import datetime
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.db.models import Count
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
 
-import zeroed.settings
 from zeroed.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactRequestForm
-from .models import Blog, Comment, UserProfile
+from .models import Blog, Comment
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
-import bleach
 
 
 def blogs_sorted(sorting, author=None):
