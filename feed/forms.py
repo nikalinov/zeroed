@@ -22,7 +22,7 @@ class ProfileEditForm(forms.Form):
 class BlogForm(forms.ModelForm):
     class Meta:
         model = Blog
-        fields = ['title', 'content', 'content_type', 'language']
+        fields = ['title', 'content', 'content_type', 'language', 'picture']
 
     # TODO
     """def clean_content(self):

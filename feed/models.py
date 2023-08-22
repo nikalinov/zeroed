@@ -8,6 +8,7 @@ from django_quill.quill import Quill
 from feed.countries import COUNTRIES
 from django.urls import reverse
 from django_quill.fields import QuillField
+from feed.languages import LANGUAGES
 
 
 class UserProfile(models.Model):
@@ -72,13 +73,6 @@ class ContentType(models.Model):
         return self.type
 
 
-class Language(models.Model):
-    language = models.CharField(max_length=100)
-
-    def __str__(self):
-        return self.language
-
-
 class Blog(models.Model):
     title = models.CharField(max_length=200, null=True)
     author = models.ForeignKey(
@@ -89,10 +83,11 @@ class Blog(models.Model):
     )
     post_date = models.DateField(default=now)
     content_type = models.ManyToManyField(ContentType)
-    language = models.ForeignKey(Language, on_delete=models.RESTRICT, null=True)
+    language = models.CharField(max_length=50, choices=LANGUAGES, default='EN')
     content = QuillField()
     upvoters = models.ManyToManyField(User, related_name='upvoters')
     views = models.IntegerField(editable=False, default=0)
+    picture = models.ImageField(upload_to='feed/blog-pics/', default='feed/blog-pics/white-bg.png', blank=True)
 
     class Meta:
         ordering = ['-post_date']

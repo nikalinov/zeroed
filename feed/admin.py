@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.forms import Textarea
-from .models import Language, Blog, Comment, ContentType, UserProfile
+from .models import Blog, Comment, ContentType, UserProfile
 from django.db import models
 
 
 admin.site.register(Comment)
 admin.site.register(ContentType)
-admin.site.register(Language)
 admin.site.register(UserProfile)
 
 

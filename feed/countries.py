@@ -1,4 +1,4 @@
-COUNTRIES = (("AF", "Afghanistan"),
+COUNTRIES = [("AF", "Afghanistan"),
              ("AX", "Aland Islands"),
              ("AL", "Albania"),
              ("DZ", "Algeria"),
@@ -245,4 +245,4 @@ COUNTRIES = (("AF", "Afghanistan"),
              ("WF", "Wallis and Futuna"),
              ("YE", "Yemen"),
              ("ZM", "Zambia"),
-             ("ZW", "Zimbabwe"),)
+             ("ZW", "Zimbabwe"),]

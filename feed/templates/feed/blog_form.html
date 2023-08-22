@@ -14,12 +14,17 @@
       <h1>Create a blog</h1>
     </div>
     <div class="justify-content-center" style="display: flex;">
-      <form action="" method="POST">
+      <form enctype="multipart/form-data" action="" method="POST">
         {% csrf_token %}
-        Title: {{ form.title }}
-        Language: {{ form.language }}
+        <div style="padding-top: 20px; padding-bottom: 20px;">
+          Title: {{ form.title }}
+          Language: {{ form.language }}
+        </div>
         {{ form.content }}
-        <div>Content type(s):</div>{{ form.content_type }}
+        <div class="d-flex justify-content-start">
+          <div style="padding: 10px 10px 10px 0px"><div>Content type(s):</div>{{ form.content_type }}</div>
+          <div style="padding: 10px 10px 10px 10px"><div>Add a background image<br>(or leave empty for white background):</div>{{ form.picture }}</div>
+        </div>
         <div {% if not perms.feed.add_blog %}
           title="You cannot post a blog with less than 10 reputation!"{% endif %}>
           <button class="btn btn-dark"
