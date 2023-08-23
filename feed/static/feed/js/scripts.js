@@ -31,3 +31,8 @@ window.addEventListener('DOMContentLoaded', () => {
 $(".chosen-select").chosen({
   no_results_text: "Oops, nothing found!"
 })
+
+$(document).on('click', '.confirm-delete', function(){
+    return confirm('Are you sure you want to delete this blog?');
+})
+

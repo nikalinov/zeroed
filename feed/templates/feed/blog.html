@@ -20,20 +20,11 @@
                     <a href="{% url 'profile' blog.author.pk %}">{{ blog.author }}</a> on {{ blog.post_date }}
                   </span>
                   <span class="meta" style="padding: 20px 10px">
-                    {% if user.is_authenticated %}
-                        <a href="{% url 'rate' blog.pk %}">
-                          {% if user in blog.upvoters.all %}
-                            <i class="fa-solid fa-heart fa-lg" style="color: #ffffff;" title="likes"></i>
-                          {% else %}
-                            <i class="fa-regular fa-heart fa-lg" style="color: #ffffff;" title="likes"></i>
-                          {% endif %}
-                        </a>
-                    {% else %}
-                      <a href="{% url 'login' %}">
-                        <i class="fa-regular fa-heart fa-lg" style="color: #ffffff;" title="likes"></i>
-                      </a>
-                    {% endif %} {{ blog.get_rating }}
+                    <a href="{% url 'rate' blog.pk %}">
+                      <i class="fa-{% if user in blog.upvoters.all %}solid{% else %}regular{% endif %} fa-heart fa-lg" style="color: #ffffff;" title="likes"></i>
+                    </a> {{ blog.get_rating }}
                     <i class="fa-sharp fa-light fa-eye fa-lg" style="color: #ffffff;" title="views"></i> {{ blog.views }}
+                    {% if user == blog.author %}<a class="confirm-delete" href="{% url 'blog-delete' blog.pk %}" style="padding-left: 5px;"><i class="fa-solid fa-trash-can fa-lg"></i></a>{% endif %}
                   </span>
                 </div>
               </div>

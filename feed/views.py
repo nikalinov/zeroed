@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -91,7 +92,7 @@ def profile(request, pk, sorting='title', edit=''):
             user_profile.bio = form.cleaned_data['bio']
             user_profile.user.email = form.cleaned_data['email']
             user_profile.location = form.cleaned_data['location']
-            user_profile.picture = form.files['picture']
+            user_profile.picture = form.files.get('picture', user_profile.picture)
 
             user_profile.website = form.cleaned_data['website']
             user_profile.github = form.cleaned_data['github']
@@ -143,6 +144,7 @@ def blog_view(request, pk):
     return render(request, 'feed/blog.html', context=context)
 
 
+@login_required
 def rate_view(request, pk):
     blog = Blog.objects.get(pk=pk)
     user = User.objects.get(pk=request.user.pk)
@@ -150,6 +152,7 @@ def rate_view(request, pk):
         blog.upvoters.remove(User.objects.get(pk=request.user.pk))
     else:
         blog.upvoters.add(User.objects.get(pk=request.user.pk))
+    print(request.META['HTTP_REFERER'])
     return HttpResponseRedirect(request.META['HTTP_REFERER'])
 
 
@@ -174,8 +177,9 @@ class BlogUpdateView(LoginRequiredMixin, UpdateView):
 
 class BlogDeleteView(DeleteView):
     model = Blog
-    # TODO kwargs={pk: user.pk}
-    success_url = reverse_lazy('profile')
+
+    def get_success_url(self):
+        return reverse_lazy('profile', args=[Blog.objects.get(pk=self.kwargs['pk']).author.pk])
 
 
 class CommentCreateView(LoginRequiredMixin, CreateView):
