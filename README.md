@@ -2,9 +2,9 @@
 **Zeroed** is a website where anyone can write, share, and comment blogs. 
 
 Table of contents:
-* [Overview/main page](#overview/main-page)
-* [Registration/login](#registration/login)
-* [User/author profile](#user/author-profile)
+* [Overview/main page](#overviewmain-page)
+* [Registration/login](#registrationlogin)
+* [User/author profile](#userauthor-profile)
 * [Writing a blog](#writing-a-blog)
 * [Getting in touch](getting-in-touch)
 
