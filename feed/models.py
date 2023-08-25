@@ -85,7 +85,7 @@ class Blog(models.Model):
     content_type = models.ManyToManyField(ContentType)
     language = models.CharField(max_length=50, choices=LANGUAGES, default='EN')
     content = QuillField()
-    upvoters = models.ManyToManyField(User, related_name='upvoters')
+    upvoters = models.ManyToManyField(User, related_name='upvoters', blank=True)
     views = models.IntegerField(editable=False, default=0)
     picture = models.ImageField(upload_to='feed/blog-pics/', default='feed/blog-pics/white-bg.png', blank=True)
 

@@ -8,10 +8,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView
-
 from zeroed.settings import env
 from .forms import ProfileEditForm, BlogForm, ContactRequestForm
-from .models import Blog, Comment
+from .models import Blog, Comment, ContentType
 from django.views.generic.edit import CreateView, DeleteView, UpdateView, FormView
 
 
@@ -39,6 +38,11 @@ class BlogListView(ListView):
             return blogs_sorted(self.kwargs['sorting'])
         else:
             return Blog.objects.order_by('title')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['types'] = ContentType.objects.all()
+        return context
 
 
 def about(request):

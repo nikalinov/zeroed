@@ -14,10 +14,14 @@
             <div class="page-heading">
               <div class="post-heading">
                 <div class="transbox">
-                  <h1>{{ blog.title }}</h1>
-                  <!--<h2 class="subheading">blog.intro</h2>-->
+                  <h1 style="padding: 10px 10px 10px 10px">{{ blog.title }}</h1>
+                  <br>
                   <span class="meta">Posted by
-                    <a href="{% url 'profile' blog.author.pk %}">{{ blog.author }}</a> on {{ blog.post_date }}
+                    <a href="{% url 'profile' blog.author.pk %}">
+                      <img class="rounded-circle" src="{{ blog.author.userprofile.picture.url }}" alt="img" width="25" height="25">
+                      {{ blog.author }}</a> on {{ blog.post_date }}
+                    <br><br>
+                    {{ blog.get_content_type }}
                   </span>
                   <span class="meta" style="padding: 20px 10px">
                     <a href="{% url 'rate' blog.pk %}">
@@ -43,6 +47,7 @@
         <div class="row gx-4 gx-lg-5 justify-content-center">
           <div class="col-md-10 col-lg-8 col-xl-7">
             {{ blog.content.html|bleach }}
+            <br>
             <!-- comment section -->
             <form action="{% url 'comment-add' blog.pk %}" method="post">
               {% csrf_token %}
@@ -50,7 +55,8 @@
                 <input class="form-control" id="comment-write" name="text" type="text" placeholder="" value=""/>
                 <label for="comment-write">Make a comment...</label>
               </div>
-              <div {% if not perms.feed.add_comment %}
+              <!--TODO missed 'not'-->
+              <div {% if perms.feed.add_comment %}
                 title="You cannot comment with less than 5 reputation!"{% endif %}>
                 <button class="btn btn-primary text-uppercase"
                     {% if user.is_authorized and not perms.feed.add_comment %} disabled title="You cannot comment with less than 5 reputation!"{% endif %}

@@ -4,6 +4,6 @@
 {% block header %} Registration complete {% endblock %}
 
 {% block text %}
-  <p>Congratulations, {{ username }}, you have successfully activated your account</p>
+  <p>Congratulations, <b>{{ username }}</b>, you have successfully activated your account</p>
   <p>To return to login page, <a href="{% url 'login' %}">click here.</a></p>
 {% endblock %}

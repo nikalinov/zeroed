@@ -5,8 +5,8 @@
 {% block text %}
   <form method="post" action="">
     {% csrf_token %}
-    <p>Are you sure you want to delete this blog?</p>
-    <button class="btn btn--radius-2 btn--red" type="submit"> Yes </button>
+    <p style="padding-bottom: 20px;">Are you sure you want to delete this blog?</p>
+    <button class="btn btn--radius-2 btn--green" type="submit"> Yes </button>
     <a href="{% url 'blog' blog.pk %}"><button class="btn btn--radius-2 btn--red" type="button"> No </button></a>
   </form>
 {% endblock %}

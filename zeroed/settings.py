@@ -154,7 +154,7 @@ BLEACH_ALLOWED_TAGS = [
     "ul", "a", "abbr", "b", "bdi", "bdo", "br", "cite", "code", "data", "dfn",
     "em", "i", "kbd", "mark", "q", "rb", "rp", "rt", "rtc", "ruby", "s", "samp",
     "small", "span", "strong", "sub", "sup", "time", "u", "var", "wbr", "caption",
-    "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr",
+    "col", "colgroup", "table", "tbody", "td", "tfoot", "th", "thead", "tr", "img"
 ]
 # Which HTML attributes are allowed
 BLEACH_ALLOWED_ATTRIBUTES = [
@@ -185,7 +185,7 @@ BLEACH_ALLOWED_STYLES = [
 # Which protocols (and pseudo-protocols) are allowed in 'src' attributes
 # (assuming src is an allowed attribute)
 BLEACH_ALLOWED_PROTOCOLS = [
-    'http', 'https',
+    'http', 'https', 'data'
 ]
 # Strip unknown tags if True, replace with HTML escaped characters if False
 BLEACH_STRIP_TAGS = False

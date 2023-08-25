@@ -4,7 +4,7 @@
 {% block header %} Registration success {% endblock %}
 
 {% block text %}
-  <p>Thank you for the registration, {{ username }}!</p>
+  <p>Thank you for the registration, <b>{{ username }}</b>!</p>
   <p>Please, check your email to verify your new account.</p>
   <p>To go to the login page, <a href="{% url 'login' %}">click here</a></p>
 {% endblock %}
