@@ -26,6 +26,7 @@ https://github.com/nikalinov/zeroed/assets/92603661/e6db3080-917a-4901-9239-f79d
 * To register, one should fill all the necessary fields. The password's length must be at least 8 characters and include 1 lowercase, 1 uppercase, 1 number, and 1 symbol.
 * After that, the account must be activated by following the link which is sent to the email from the registration form.
 * Using the activated account credentials, a new user can log in with their email and password.
+* If a user forgets the password, they can reset it using the 'Forgot your password?' link on the login page.
 ## Blog page
 * A user can find links to blogs either on the main page or a user's page (see [User/author profile](#userauthor-profile) part).
 * There is custom background, title, and blog data (author, likes, and views) at the header section.
