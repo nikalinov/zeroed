@@ -6,10 +6,10 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title></title>
   </head>
-  <body>
-    <p style="font-size: 18px;">Thank you for registering on Zeroed, <b>{{ username }}</b>!</p>
-    <p style="font-size: 18px;">To activate your account,
-      <a href="{{ protocol }}://{{ domain }}{% url 'register-confirm' pk %}">click here</a></p>
+  <body style="font-size: 18px;">
+    <p>Thank you for registering on Zeroed, <b>{{ username }}</b>!<br>To activate your account,
+      <a href="{{ protocol }}://{{ domain }}{% url 'register-confirm' pk %}">click here</a><p>
+    <p>Best regards, <br>Zeroed support</p>
     <!-- this is needed to avoid Gmail trimming -->
     <span style="opacity: 0"> {% randomness %} </span>
   </body>

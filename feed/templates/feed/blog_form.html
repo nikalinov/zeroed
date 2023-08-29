@@ -29,9 +29,8 @@
         <!--TODO missed 'not' -->
         <div {% if perms.feed.add_blog %}
           title="You cannot post a blog with less than 10 reputation!"{% endif %}>
-          <button class="btn btn-dark"
-            {% if not perms.feed.add_blog %} disabled {% endif %}
-            type="submit">Post</button></div>
+          <!--TODO {% if not perms.feed.add_blog %} disabled {% endif %} -->
+          <button class="btn btn-dark" type="submit">Post</button></div>
       </form>
     </div>
   </div>

@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'password_reset',
     'django_quill',
     'django_bleach',
+    'django_cleanup.apps.CleanupConfig',
+    'django_unused_media',
 ]
 
 MIDDLEWARE = [
