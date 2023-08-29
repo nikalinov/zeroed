@@ -64,7 +64,7 @@ https://github.com/nikalinov/zeroed/assets/92603661/3720d2c0-09c0-4b66-9102-8369
 https://github.com/nikalinov/zeroed/assets/92603661/63ac35c1-0db3-4956-a110-9a2b9597d552
 
 ## Technologies used
-* [Python 3](https://www.python.org/downloads/)
+* [Python 3](https://www.python.org/)
 * [Django](https://www.djangoproject.com/)
 * [Bootstrap](https://getbootstrap.com/)
 * HTML, CSS
