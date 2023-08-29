@@ -46,5 +46,12 @@ https://github.com/nikalinov/zeroed/assets/92603661/26aefb4c-3c15-4f5c-800b-f96f
 https://github.com/nikalinov/zeroed/assets/92603661/13b2d8a5-ab16-4e2f-ac5c-cd90699ad647
 
 ## Writing a blog
+* 'Write' link in the navigation bar redirects to the writing page.
+* A user should set a title, language, content type(s), and background image (optional, the default is a light monotone background).
+* In the editor, the text can be stylized within the available range of formatting options (setting headings, bold/italic text, font size/color, etc.)
+* If a writer wishes, they can upload media in the blog body.
+* After publishing, there is an option to delete the blog.
+
+https://github.com/nikalinov/zeroed/assets/92603661/3720d2c0-09c0-4b66-9102-8369171320ed
 
 ## Getting in touch
