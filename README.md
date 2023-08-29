@@ -55,3 +55,16 @@ https://github.com/nikalinov/zeroed/assets/92603661/13b2d8a5-ab16-4e2f-ac5c-cd90
 https://github.com/nikalinov/zeroed/assets/92603661/3720d2c0-09c0-4b66-9102-8369171320ed
 
 ## Getting in touch
+* If a user has a query, they can follow the 'Contact' link in the navigation bar (the user must be logged in)
+* After filling in the subject and message, the email will be sent to the website support's mailbox.
+
+https://github.com/nikalinov/zeroed/assets/92603661/63ac35c1-0db3-4956-a110-9a2b9597d552
+
+## Technologies used
+* [Python 3](https://www.python.org/downloads/)
+* [Django](https://www.djangoproject.com/)
+* [Bootstrap](https://getbootstrap.com/)
+* HTML, CSS
+* [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/)
+* [Quill editor](https://quilljs.com/)
+* Javascript (minor usage)
