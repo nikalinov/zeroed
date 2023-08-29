@@ -1,5 +1,5 @@
 # Zeroed
-**Zeroed** is a website where anyone can write, share, and comment blogs. 
+**Zeroed** is a website where anyone can read, write, and comment blogs. 
 
 Table of contents:
 * Website functionality
