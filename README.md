@@ -64,10 +64,10 @@ https://github.com/nikalinov/zeroed/assets/92603661/3720d2c0-09c0-4b66-9102-8369
 https://github.com/nikalinov/zeroed/assets/92603661/63ac35c1-0db3-4956-a110-9a2b9597d552
 
 ## Technologies used
-* [Python 3](https://www.python.org/downloads/)
-* [Django](https://www.djangoproject.com/)
-* [Bootstrap](https://getbootstrap.com/)
+* [Python 3](https://www.python.org/downloads/){:target="_blank"} 
+* [Django](https://www.djangoproject.com/){:target="_blank"} 
+* [Bootstrap](https://getbootstrap.com/){:target="_blank"} 
 * HTML, CSS
-* [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/)
-* [Quill editor](https://quilljs.com/)
+* [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/){:target="_blank"} 
+* [Quill editor](https://quilljs.com/){:target="_blank"} 
 * Javascript (minor usage)
