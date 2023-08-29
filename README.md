@@ -2,13 +2,16 @@
 **Zeroed** is a website where anyone can write, share, and comment blogs. 
 
 Table of contents:
-* [Overview/main page](#overviewmain-page)
-* ['About' page](#about-page)
-* [Login and registration](#login-and-registration)
-* [User/author profile](#userauthor-profile)
-* [Blog page](#blog-page)
-* [Writing a blog](#writing-a-blog)
-* [Getting in touch](#getting-in-touch)
+* Website functionality
+  * [Overview/main page](#overviewmain-page)
+  * ['About' page](#about-page)
+  * [Login and registration](#login-and-registration)
+  * [User/author profile](#userauthor-profile)
+  * [Blog page](#blog-page)
+  * [Writing a blog](#writing-a-blog)
+  * [Getting in touch](#getting-in-touch)
+* [Technologies used](#technologies-used)
+
 
 ## Overview/main page
 * The first page a user sees contains a list with all blogs. There is information about each blog: author, date, views, rating (number of likes), and content type(s). 
