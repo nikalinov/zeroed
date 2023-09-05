@@ -12,8 +12,6 @@ Table of contents:
   * [Getting in touch](#getting-in-touch)
 * [Technologies used](#technologies-used)
 
-All descriptions are illustrated with videos/images.
-
 ## Overview/main page
 * The first page a user sees contains a list with all blogs. There is information about each blog: author, date, views, rating (number of likes), and content type(s). 
 * The user can sort the list based on the available options and move through the pages of blogs. 
